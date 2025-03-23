@@ -1,7 +1,9 @@
+
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X, ShoppingCart } from 'lucide-react';
 import { useCart } from '@/context/CartContext';
+
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -30,6 +32,7 @@ const Navbar = () => {
 
   // Count total items in cart
   const itemCount = cartItems.reduce((total, item) => total + item.quantity, 0);
+  
   return <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? 'bg-white/90 backdrop-blur-md shadow-sm py-3' : 'bg-transparent py-5'}`}>
       <div className="container mx-auto px-4 md:px-6 flex items-center justify-between">
         {/* Logo */}
@@ -39,16 +42,16 @@ const Navbar = () => {
           </span>
         </Link>
 
-        {/* Desktop Navigation */}
+        {/* Desktop Navigation - Updated Order */}
         <nav className="hidden md:flex items-center space-x-8">
           <Link to="/" className="nav-link font-medium">
             Home
           </Link>
-          <Link to="/order" className="nav-link font-medium">
-            Order
-          </Link>
           <Link to="/menu" className="nav-link font-medium">
             Menu
+          </Link>
+          <Link to="/order" className="nav-link font-medium">
+            Order
           </Link>
           <Link to="/about" className="nav-link font-medium">
             About Us
@@ -75,17 +78,17 @@ const Navbar = () => {
         </div>
       </div>
 
-      {/* Mobile Navigation */}
+      {/* Mobile Navigation - Updated Order */}
       {isMobileMenuOpen && <div className="md:hidden absolute top-full left-0 right-0 bg-white/95 backdrop-blur-md shadow-md animate-fade-in">
           <nav className="container mx-auto px-4 py-6 flex flex-col space-y-4">
             <Link to="/" className="px-4 py-2 hover:bg-desi-orange/10 rounded-md transition-colors text-desi-black hover:text-desi-orange">
               Home
             </Link>
-            <Link to="/order" className="px-4 py-2 hover:bg-desi-orange/10 rounded-md transition-colors text-desi-black hover:text-desi-orange">
-              Order
-            </Link>
             <Link to="/menu" className="px-4 py-2 hover:bg-desi-orange/10 rounded-md transition-colors text-desi-black hover:text-desi-orange">
               Menu
+            </Link>
+            <Link to="/order" className="px-4 py-2 hover:bg-desi-orange/10 rounded-md transition-colors text-desi-black hover:text-desi-orange">
+              Order
             </Link>
             <Link to="/about" className="px-4 py-2 hover:bg-desi-orange/10 rounded-md transition-colors text-desi-black hover:text-desi-orange">
               About Us
@@ -94,4 +97,5 @@ const Navbar = () => {
         </div>}
     </header>;
 };
+
 export default Navbar;

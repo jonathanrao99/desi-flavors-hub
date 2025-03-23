@@ -1,13 +1,14 @@
+
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Phone, Calendar, AlertCircle, ShoppingCart, Plus, Minus, X } from 'lucide-react';
+import { Phone, Calendar, ShoppingCart, Plus, Minus, Star } from 'lucide-react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import SocialLinks from '@/components/SocialLinks';
-import { useCart, CartItem } from '@/context/CartContext';
+import { useCart } from '@/context/CartContext';
 import { toast } from '@/components/ui/use-toast';
 
 interface MenuItem {
@@ -18,10 +19,11 @@ interface MenuItem {
   isVegetarian?: boolean;
   isSpicy?: boolean;
   category: string;
+  imageSrc?: string;
 }
 
 const Order = () => {
-  const [activeCategory, setActiveCategory] = useState<string>('Biryani');
+  const [activeCategory, setActiveCategory] = useState<string>('All');
   const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState<MenuItem | null>(null);
@@ -36,7 +38,8 @@ const Order = () => {
       description: 'Fragrant basmati rice cooked with tender chicken, aromatic spices, and herbs.',
       price: '$14.99',
       isSpicy: true,
-      category: 'Biryani'
+      category: 'Biryani',
+      imageSrc: 'https://images.unsplash.com/photo-1589302168068-964664d93dc0?auto=format&fit=crop&q=80&w=600'
     },
     {
       id: 2,
@@ -44,7 +47,8 @@ const Order = () => {
       description: 'Basmati rice cooked with mixed vegetables, aromatic spices, and herbs.',
       price: '$12.99',
       isVegetarian: true,
-      category: 'Biryani'
+      category: 'Biryani',
+      imageSrc: 'https://images.unsplash.com/photo-1645177628472-9771f5797883?auto=format&fit=crop&q=80&w=600'
     },
     {
       id: 3,
@@ -52,21 +56,24 @@ const Order = () => {
       description: 'Basmati rice cooked with tender lamb, aromatic spices, and herbs.',
       price: '$16.99',
       isSpicy: true,
-      category: 'Biryani'
+      category: 'Biryani',
+      imageSrc: 'https://images.unsplash.com/photo-1633945274405-b6c8069047b0?auto=format&fit=crop&q=80&w=600'
     },
     {
       id: 4,
       name: 'Egg Biryani',
       description: 'Basmati rice cooked with boiled eggs, aromatic spices, and herbs.',
       price: '$13.99',
-      category: 'Biryani'
+      category: 'Biryani',
+      imageSrc: 'https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?auto=format&fit=crop&q=80&w=600'
     },
     {
       id: 5,
       name: 'Butter Chicken',
       description: 'Tender chicken pieces in a creamy, tomato-based curry with a hint of butter.',
       price: '$13.99',
-      category: 'Curries'
+      category: 'Curries',
+      imageSrc: 'https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?auto=format&fit=crop&q=80&w=600'
     },
     {
       id: 6,
@@ -74,7 +81,8 @@ const Order = () => {
       description: 'Cubes of paneer cheese in a rich, spiced tomato sauce.',
       price: '$12.99',
       isVegetarian: true,
-      category: 'Curries'
+      category: 'Curries',
+      imageSrc: 'https://images.unsplash.com/photo-1567188040759-fb8a3d42c3b3?auto=format&fit=crop&q=80&w=600'
     },
     {
       id: 7,
@@ -83,7 +91,8 @@ const Order = () => {
       price: '$11.99',
       isVegetarian: true,
       isSpicy: true,
-      category: 'Curries'
+      category: 'Curries',
+      imageSrc: 'https://images.unsplash.com/photo-1588166524941-3bf61a9c41db?auto=format&fit=crop&q=80&w=600'
     },
     {
       id: 8,
@@ -91,7 +100,8 @@ const Order = () => {
       description: 'Crispy pastry triangles filled with spiced potatoes, peas, and vegetables.',
       price: '$6.99',
       isVegetarian: true,
-      category: 'Appetizers'
+      category: 'Appetizers',
+      imageSrc: 'https://images.unsplash.com/photo-1601050690597-df0568f70950?auto=format&fit=crop&q=80&w=600'
     },
     {
       id: 9,
@@ -99,7 +109,8 @@ const Order = () => {
       description: 'Crispy, deep-fried onion fritters made with chickpea flour and spices.',
       price: '$5.99',
       isVegetarian: true,
-      category: 'Appetizers'
+      category: 'Appetizers',
+      imageSrc: 'https://images.unsplash.com/photo-1606755456614-b3875c86b45e?auto=format&fit=crop&q=80&w=600'
     },
     {
       id: 10,
@@ -107,7 +118,8 @@ const Order = () => {
       description: 'Soft bread topped with garlic and butter, baked in a tandoor.',
       price: '$3.99',
       isVegetarian: true,
-      category: 'Breads & Sides'
+      category: 'Breads & Sides',
+      imageSrc: 'https://images.unsplash.com/photo-1584269600464-37b1b58a9fe7?auto=format&fit=crop&q=80&w=600'
     },
     {
       id: 11,
@@ -115,7 +127,8 @@ const Order = () => {
       description: 'Yogurt mixed with cucumber, tomatoes, and spices.',
       price: '$3.49',
       isVegetarian: true,
-      category: 'Breads & Sides'
+      category: 'Breads & Sides',
+      imageSrc: 'https://images.unsplash.com/photo-1590779033965-9a6e5be8ef87?auto=format&fit=crop&q=80&w=600'
     },
     {
       id: 12,
@@ -123,7 +136,8 @@ const Order = () => {
       description: 'Soft milk solids balls soaked in rose-flavored sugar syrup.',
       price: '$4.99',
       isVegetarian: true,
-      category: 'Desserts'
+      category: 'Desserts',
+      imageSrc: 'https://images.unsplash.com/photo-1586954451116-17a1255a45cb?auto=format&fit=crop&q=80&w=600'
     },
     {
       id: 13,
@@ -131,7 +145,8 @@ const Order = () => {
       description: 'Creamy rice pudding flavored with cardamom, saffron, and topped with nuts.',
       price: '$4.99',
       isVegetarian: true,
-      category: 'Desserts'
+      category: 'Desserts',
+      imageSrc: 'https://images.unsplash.com/photo-1605195340090-9ae03a3cde34?auto=format&fit=crop&q=80&w=600'
     },
   ];
 
@@ -163,11 +178,17 @@ const Order = () => {
 
   const handleAddToCart = () => {
     if (selectedItem && quantity > 0) {
-      addToCart({
+      // Create a modified item with quantity and special instructions to add to cart
+      const itemToAdd = {
         ...selectedItem,
-        specialInstructions
-      });
+        quantity: quantity,
+        specialInstructions: specialInstructions.trim() || undefined
+      };
+      
+      // Pass the entire item object to the context's addToCart function
+      addToCart(itemToAdd);
       setIsDialogOpen(false);
+      
       toast({
         title: "Added to cart",
         description: `${quantity} x ${selectedItem.name} added to your cart`,
@@ -185,7 +206,7 @@ const Order = () => {
             Browse our menu, select your items, and checkout securely. Choose between pickup or delivery.
           </p>
           <div className="mt-6">
-            <Link to="/cart" className="inline-flex items-center bg-desi-orange hover:bg-desi-orange/90 text-white px-6 py-3 rounded-full transition-colors">
+            <Link to="/cart" className="inline-flex items-center bg-desi-orange hover:bg-desi-orange/90 text-white px-6 py-3 rounded-full transition-colors shadow-md hover:shadow-lg">
               <ShoppingCart size={18} className="mr-2" />
               View Cart
             </Link>
@@ -193,7 +214,7 @@ const Order = () => {
         </div>
       </section>
       
-      <section className="bg-white py-12 border-b border-gray-100">
+      <section className="bg-white py-12 border-b border-gray-100 sticky top-20 z-10">
         <div className="container mx-auto px-4 md:px-6">
           <div className="flex justify-center flex-wrap gap-2 mb-8">
             <button
@@ -229,9 +250,18 @@ const Order = () => {
             {menuItems.map((item, index) => (
               <div 
                 key={item.id}
-                className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow cursor-pointer"
+                className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-all duration-300 cursor-pointer transform hover:-translate-y-1"
                 onClick={() => openOrderDialog(item)}
               >
+                {item.imageSrc && (
+                  <div className="h-48 overflow-hidden">
+                    <img 
+                      src={item.imageSrc} 
+                      alt={item.name} 
+                      className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+                    />
+                  </div>
+                )}
                 <div className="p-6">
                   <div className="flex justify-between items-start">
                     <div className="flex-1">
@@ -289,6 +319,18 @@ const Order = () => {
             </DialogTitle>
           </DialogHeader>
           <div className="space-y-4 py-2">
+            {selectedItem?.imageSrc && (
+              <div className="relative h-48 w-full overflow-hidden rounded-md">
+                <img 
+                  src={selectedItem.imageSrc} 
+                  alt={selectedItem.name} 
+                  className="h-full w-full object-cover"
+                />
+                <div className="absolute bottom-2 right-2 bg-desi-orange text-white px-2 py-1 rounded-md text-sm font-medium shadow">
+                  {selectedItem.price}
+                </div>
+              </div>
+            )}
             <p className="text-gray-600">{selectedItem?.description}</p>
             <p className="font-medium text-desi-orange text-lg">{selectedItem?.price}</p>
             

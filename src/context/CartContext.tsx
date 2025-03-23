@@ -11,11 +11,12 @@ export interface CartItem {
   isVegetarian?: boolean;
   isSpicy?: boolean;
   specialInstructions?: string;
+  imageSrc?: string;
 }
 
 interface CartContextType {
   cartItems: CartItem[];
-  addToCart: (item: Omit<CartItem, 'quantity'>) => void;
+  addToCart: (item: Partial<CartItem> & { id: number; name: string; price: string; }) => void;
   removeFromCart: (id: number) => void;
   updateQuantity: (id: number, quantity: number) => void;
   clearCart: () => void;
@@ -27,15 +28,22 @@ const CartContext = createContext<CartContextType | undefined>(undefined);
 export const CartProvider = ({ children }: { children: ReactNode }) => {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
 
-  const addToCart = (item: Omit<CartItem, 'quantity'>) => {
+  const addToCart = (item: Partial<CartItem> & { id: number; name: string; price: string; }) => {
     setCartItems(prevItems => {
       // Check if item already exists in cart
       const existingItemIndex = prevItems.findIndex(i => i.id === item.id);
       
       if (existingItemIndex >= 0) {
-        // Item exists, update quantity
+        // Item exists, update quantity and any other changes
         const updatedItems = [...prevItems];
-        updatedItems[existingItemIndex].quantity += 1;
+        const existingItem = updatedItems[existingItemIndex];
+        
+        // Set quantity (either add to existing or use the provided quantity)
+        if (item.quantity) {
+          updatedItems[existingItemIndex].quantity = item.quantity;
+        } else {
+          updatedItems[existingItemIndex].quantity += 1;
+        }
         
         // If there are special instructions, update them
         if (item.specialInstructions) {
@@ -44,18 +52,30 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
         
         toast({
           title: 'Item quantity updated',
-          description: `${item.name} quantity increased to ${updatedItems[existingItemIndex].quantity}`,
+          description: `${item.name} quantity updated to ${updatedItems[existingItemIndex].quantity}`,
         });
         
         return updatedItems;
       } else {
-        // Item doesn't exist, add new item with quantity 1
+        // Item doesn't exist, add new item with quantity specified or default to 1
+        const newItem: CartItem = {
+          id: item.id,
+          name: item.name,
+          price: item.price,
+          description: item.description,
+          quantity: item.quantity || 1,
+          isVegetarian: item.isVegetarian,
+          isSpicy: item.isSpicy,
+          specialInstructions: item.specialInstructions,
+          imageSrc: item.imageSrc
+        };
+        
         toast({
           title: 'Item added to cart',
           description: `${item.name} has been added to your cart`,
         });
         
-        return [...prevItems, { ...item, quantity: 1 }];
+        return [...prevItems, newItem];
       }
     });
   };

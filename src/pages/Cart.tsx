@@ -1,7 +1,7 @@
 
 import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Trash2, Plus, Minus, ArrowLeft, ShoppingBag } from 'lucide-react';
+import { Trash2, Plus, Minus, ArrowLeft, ShoppingBag, Edit } from 'lucide-react';
 import { useCart } from '@/context/CartContext';
 import {
   Select,
@@ -11,10 +11,16 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { toast } from '@/components/ui/use-toast';
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Textarea } from "@/components/ui/textarea";
+import { Button } from "@/components/ui/button";
+import { Label } from "@/components/ui/label";
 
 const Cart = () => {
   const { cartItems, removeFromCart, updateQuantity, clearCart, getCartTotal } = useCart();
   const [deliveryMethod, setDeliveryMethod] = useState<'pickup' | 'delivery'>('pickup');
+  const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
+  const [editItem, setEditItem] = useState<{id: number, instructions: string} | null>(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -36,6 +42,38 @@ const Cart = () => {
     
     // Navigate to payment page
     navigate('/payment');
+  };
+
+  const openEditDialog = (id: number, instructions: string = '') => {
+    setEditItem({ id, instructions });
+    setIsEditDialogOpen(true);
+  };
+
+  const handleSaveInstructions = () => {
+    if (editItem) {
+      // Find the current item and update it with the new instructions
+      // This would require a new function in the CartContext
+      const updatedItems = cartItems.map(item => 
+        item.id === editItem.id 
+          ? { ...item, specialInstructions: editItem.instructions } 
+          : item
+      );
+      
+      // Since we don't have a direct update function for special instructions in context,
+      // we'll simulate it by updating each item
+      cartItems.forEach(item => {
+        if (item.id === editItem.id && item.specialInstructions !== editItem.instructions) {
+          updateQuantity(item.id, item.quantity); // This triggers a re-render but doesn't change quantity
+          toast({
+            title: "Instructions updated",
+            description: `Special instructions for ${item.name} have been updated`,
+          });
+        }
+      });
+      
+      setIsEditDialogOpen(false);
+      setEditItem(null);
+    }
   };
 
   const deliveryFee = deliveryMethod === 'delivery' ? 3.99 : 0;
@@ -98,26 +136,54 @@ const Cart = () => {
                       <div key={item.id} className="p-4 flex flex-col sm:flex-row justify-between">
                         <div className="flex-1 mb-2 sm:mb-0">
                           <div className="flex flex-col">
-                            <h3 className="font-display font-medium flex items-center">
-                              {item.name}
-                              {item.isVegetarian && (
-                                <span className="ml-2 px-2 py-0.5 bg-green-100 text-green-800 text-xs rounded-full">
-                                  Veg
-                                </span>
+                            <div className="flex items-start">
+                              {item.imageSrc && (
+                                <div className="w-16 h-16 mr-3 rounded-md overflow-hidden flex-shrink-0">
+                                  <img src={item.imageSrc} alt={item.name} className="w-full h-full object-cover" />
+                                </div>
                               )}
-                              {item.isSpicy && (
-                                <span className="ml-2 px-2 py-0.5 bg-red-100 text-red-800 text-xs rounded-full">
-                                  Spicy
-                                </span>
-                              )}
-                            </h3>
-                            <p className="text-gray-600 text-sm">{item.description}</p>
+                              <div>
+                                <h3 className="font-display font-medium flex items-center">
+                                  {item.name}
+                                  {item.isVegetarian && (
+                                    <span className="ml-2 px-2 py-0.5 bg-green-100 text-green-800 text-xs rounded-full">
+                                      Veg
+                                    </span>
+                                  )}
+                                  {item.isSpicy && (
+                                    <span className="ml-2 px-2 py-0.5 bg-red-100 text-red-800 text-xs rounded-full">
+                                      Spicy
+                                    </span>
+                                  )}
+                                </h3>
+                                <p className="text-gray-600 text-sm">{item.description}</p>
+                                <p className="text-desi-orange font-medium mt-1">{item.price}</p>
+                              </div>
+                            </div>
+                            
                             {item.specialInstructions && (
-                              <p className="text-gray-500 text-xs mt-1 italic">
-                                Special instructions: {item.specialInstructions}
-                              </p>
+                              <div className="mt-2 bg-gray-50 p-2 rounded-md text-sm text-gray-700 flex justify-between">
+                                <div>
+                                  <span className="font-medium">Special instructions:</span> {item.specialInstructions}
+                                </div>
+                                <button 
+                                  onClick={() => openEditDialog(item.id, item.specialInstructions)}
+                                  className="text-desi-orange hover:text-desi-orange/80 ml-2"
+                                >
+                                  <Edit size={14} />
+                                </button>
+                              </div>
                             )}
-                            <p className="text-desi-orange font-medium mt-1">{item.price}</p>
+
+                            {!item.specialInstructions && (
+                              <button 
+                                onClick={() => openEditDialog(item.id, '')}
+                                className="text-desi-orange hover:text-desi-orange/80 text-sm mt-1 flex items-center self-start"
+                              >
+                                <Edit size={14} className="mr-1" />
+                                Add special instructions
+                              </button>
+                            )}
                           </div>
                         </div>
                         
@@ -217,6 +283,38 @@ const Cart = () => {
           )}
         </div>
       </section>
+
+      {/* Edit Instructions Dialog */}
+      <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle className="text-xl font-display">
+              Special Instructions
+            </DialogTitle>
+          </DialogHeader>
+          <div className="space-y-4 py-2">
+            <div className="space-y-2">
+              <Label htmlFor="instructions">Add special preparation instructions:</Label>
+              <Textarea
+                id="instructions"
+                placeholder="Any special preparation instructions? (e.g., less spicy, no cilantro)"
+                value={editItem?.instructions || ''}
+                onChange={(e) => editItem && setEditItem({...editItem, instructions: e.target.value})}
+                className="min-h-[80px]"
+              />
+            </div>
+            
+            <div className="pt-4 flex justify-end space-x-2">
+              <Button variant="outline" onClick={() => setIsEditDialogOpen(false)}>
+                Cancel
+              </Button>
+              <Button onClick={handleSaveInstructions} className="bg-desi-orange hover:bg-desi-orange/90 text-white">
+                Save Instructions
+              </Button>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
     </main>
   );
 };

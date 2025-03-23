@@ -1,7 +1,7 @@
 
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { ChevronRight, Star, Clock, MapPin, Utensils, Heart, Award } from 'lucide-react';
+import { ChevronRight, Star, Clock, MapPin, Utensils, Heart, Award, Check, Bookmark } from 'lucide-react';
 import BestsellerCard from '@/components/BestsellerCard';
 import SocialLinks from '@/components/SocialLinks';
 
@@ -47,6 +47,12 @@ const Index = () => {
               Experience homestyle Indian cuisine with our specialty biryanis and 
               traditional favorites, made with authentic recipes and fresh ingredients.
             </p>
+            <div className="flex items-center justify-center mb-6 animate-fade-in-delay">
+              <span className="bg-white/10 text-white px-4 py-1 rounded-full text-sm font-medium border border-white/20 flex items-center">
+                <Check size={16} className="mr-1 text-desi-orange" /> 
+                100% Halal Certified
+              </span>
+            </div>
             <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in-delay">
               <Link to="/menu" className="bg-desi-orange hover:bg-desi-orange/90 text-white px-8 py-3 rounded-full 
                   font-medium transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
@@ -176,6 +182,87 @@ Katy, Texas, 77450</p>
         </div>
       </section>
 
+      {/* NEW SECTION: Our Commitment to Quality */}
+      <section className="py-20 bg-gradient-to-b from-desi-cream to-white">
+        <div className="container mx-auto px-4 md:px-6">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-display font-bold mb-4">
+              Our Commitment to Quality
+            </h2>
+            <p className="text-gray-600 max-w-2xl mx-auto">
+              At Desi Flavors Katy, we're committed to providing you with an exceptional dining experience.
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+            <div className="order-2 lg:order-1">
+              <div className="space-y-6">
+                <div className="flex items-start">
+                  <div className="flex-shrink-0 mt-1">
+                    <div className="flex items-center justify-center w-8 h-8 rounded-full bg-desi-orange text-white">
+                      <Check size={16} />
+                    </div>
+                  </div>
+                  <div className="ml-4">
+                    <h3 className="text-lg font-medium text-gray-900">100% Halal Certified</h3>
+                    <p className="mt-1 text-gray-600">All our meat is sourced from certified Halal suppliers, ensuring the highest standards of quality and religious compliance.</p>
+                  </div>
+                </div>
+                
+                <div className="flex items-start">
+                  <div className="flex-shrink-0 mt-1">
+                    <div className="flex items-center justify-center w-8 h-8 rounded-full bg-desi-orange text-white">
+                      <Check size={16} />
+                    </div>
+                  </div>
+                  <div className="ml-4">
+                    <h3 className="text-lg font-medium text-gray-900">Authentic Spices</h3>
+                    <p className="mt-1 text-gray-600">We import and blend our spices using traditional methods to create the perfect balance of flavors in every dish.</p>
+                  </div>
+                </div>
+                
+                <div className="flex items-start">
+                  <div className="flex-shrink-0 mt-1">
+                    <div className="flex items-center justify-center w-8 h-8 rounded-full bg-desi-orange text-white">
+                      <Check size={16} />
+                    </div>
+                  </div>
+                  <div className="ml-4">
+                    <h3 className="text-lg font-medium text-gray-900">No Artificial Ingredients</h3>
+                    <p className="mt-1 text-gray-600">We cook with real ingredients—no artificial colors, flavors, or preservatives in any of our dishes.</p>
+                  </div>
+                </div>
+                
+                <div className="flex items-start">
+                  <div className="flex-shrink-0 mt-1">
+                    <div className="flex items-center justify-center w-8 h-8 rounded-full bg-desi-orange text-white">
+                      <Check size={16} />
+                    </div>
+                  </div>
+                  <div className="ml-4">
+                    <h3 className="text-lg font-medium text-gray-900">Made Fresh Daily</h3>
+                    <p className="mt-1 text-gray-600">Every dish is prepared fresh each day, ensuring you get the best taste and quality with every order.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="order-1 lg:order-2 flex justify-center">
+              <div className="relative">
+                <div className="absolute -inset-4 bg-desi-orange/10 rounded-2xl transform rotate-3"></div>
+                <img 
+                  src="https://images.unsplash.com/photo-1577303935007-0d306ee638cf?auto=format&fit=crop&q=80&w=600" 
+                  alt="Quality Indian Cuisine" 
+                  className="rounded-xl shadow-lg relative transform -rotate-2 hover:rotate-0 transition-transform duration-500 w-full max-w-md"
+                />
+                <div className="absolute top-4 right-4 bg-desi-orange text-white px-4 py-1 rounded-full text-sm font-medium shadow-md transform rotate-3">
+                  100% Halal
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Customer Reviews Section */}
       <section className="py-20 bg-desi-black text-white">
         <div className="container mx-auto px-4 md:px-6">
@@ -190,7 +277,7 @@ Katy, Texas, 77450</p>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
             {/* Review 1 */}
-            <div className="bg-white/10 backdrop-blur-sm p-6 rounded-xl border border-white/10">
+            <div className="bg-white/10 backdrop-blur-sm p-6 rounded-xl border border-white/10 transform transition-transform hover:-translate-y-2 duration-300">
               <div className="flex items-center text-desi-orange mb-3">
                 {[...Array(5)].map((_, i) => (
                   <Star key={i} size={16} fill="currentColor" />
@@ -203,7 +290,7 @@ Katy, Texas, 77450</p>
             </div>
             
             {/* Review 2 */}
-            <div className="bg-white/10 backdrop-blur-sm p-6 rounded-xl border border-white/10">
+            <div className="bg-white/10 backdrop-blur-sm p-6 rounded-xl border border-white/10 transform transition-transform hover:-translate-y-2 duration-300">
               <div className="flex items-center text-desi-orange mb-3">
                 {[...Array(5)].map((_, i) => (
                   <Star key={i} size={16} fill="currentColor" />
@@ -216,7 +303,7 @@ Katy, Texas, 77450</p>
             </div>
             
             {/* Review 3 */}
-            <div className="bg-white/10 backdrop-blur-sm p-6 rounded-xl border border-white/10">
+            <div className="bg-white/10 backdrop-blur-sm p-6 rounded-xl border border-white/10 transform transition-transform hover:-translate-y-2 duration-300">
               <div className="flex items-center text-desi-orange mb-3">
                 {[...Array(5)].map((_, i) => (
                   <Star key={i} size={16} fill="currentColor" />
@@ -269,4 +356,5 @@ Katy, Texas, 77450</p>
       </section>
     </main>;
 };
+
 export default Index;
