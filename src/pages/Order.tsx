@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import SocialLinks from '@/components/SocialLinks';
-import { useCart } from '@/context/CartContext';
+import { useCart, CartItem } from '@/context/CartContext';
 import { toast } from '@/components/ui/use-toast';
 
 interface MenuItem {
@@ -30,7 +30,6 @@ const Order = () => {
   const { addToCart } = useCart();
 
   const allMenuItems: MenuItem[] = [
-    // Biryani
     {
       id: 1,
       name: 'Chicken Biryani',
@@ -62,7 +61,6 @@ const Order = () => {
       price: '$13.99',
       category: 'Biryani'
     },
-    // Curries
     {
       id: 5,
       name: 'Butter Chicken',
@@ -87,7 +85,6 @@ const Order = () => {
       isSpicy: true,
       category: 'Curries'
     },
-    // Appetizers
     {
       id: 8,
       name: 'Vegetable Samosas',
@@ -104,7 +101,6 @@ const Order = () => {
       isVegetarian: true,
       category: 'Appetizers'
     },
-    // Breads & Sides
     {
       id: 10,
       name: 'Garlic Naan',
@@ -121,7 +117,6 @@ const Order = () => {
       isVegetarian: true,
       category: 'Breads & Sides'
     },
-    // Desserts
     {
       id: 12,
       name: 'Gulab Jamun',
@@ -170,7 +165,6 @@ const Order = () => {
     if (selectedItem && quantity > 0) {
       addToCart({
         ...selectedItem,
-        quantity,
         specialInstructions
       });
       setIsDialogOpen(false);
