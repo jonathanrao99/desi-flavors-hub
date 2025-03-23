@@ -13,6 +13,7 @@ import Menu from "./pages/Menu";
 import About from "./pages/About";
 import Order from "./pages/Order";
 import Cart from "./pages/Cart";
+import Payment from "./pages/Payment";
 import NotFound from "./pages/NotFound";
 import { CartProvider } from "./context/CartContext";
 
@@ -32,6 +33,7 @@ const App = () => (
             <Route path="/about" element={<About />} />
             <Route path="/order" element={<Order />} />
             <Route path="/cart" element={<Cart />} />
+            <Route path="/payment" element={<Payment />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
           <Footer />

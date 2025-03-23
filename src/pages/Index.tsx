@@ -1,8 +1,10 @@
+
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { ChevronRight, Star, Clock, MapPin } from 'lucide-react';
+import { ChevronRight, Star, Clock, MapPin, Utensils, Heart, Award } from 'lucide-react';
 import BestsellerCard from '@/components/BestsellerCard';
 import SocialLinks from '@/components/SocialLinks';
+
 const Index = () => {
   // Sample bestsellers data
   const bestsellers = [{
@@ -27,6 +29,7 @@ const Index = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+  
   return <main className="min-h-screen">
       {/* Hero Section */}
       <section className="relative flex min-h-screen items-center justify-center overflow-hidden bg-desi-black text-white py-20">
@@ -54,6 +57,82 @@ const Index = () => {
                 Order Online
               </Link>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Traditional Recipes Section */}
+      <section className="py-16 bg-white">
+        <div className="container mx-auto px-4 md:px-6">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-display font-bold mb-4">
+              Traditional Recipes, Modern Delights
+            </h2>
+            <p className="text-gray-600 max-w-2xl mx-auto">
+              We blend time-honored family recipes with contemporary culinary techniques 
+              to create dishes that honor tradition while delighting today's palates.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
+            {/* Traditional */}
+            <div className="text-center p-6 rounded-xl hover:shadow-lg transition-shadow">
+              <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-desi-orange/10 mb-5">
+                <Utensils className="text-desi-orange" size={28} />
+              </div>
+              <h3 className="text-xl font-display font-medium mb-3">Family Recipes</h3>
+              <p className="text-gray-600">
+                Our dishes are prepared using recipes passed down through generations, preserving the authentic taste of Indian cuisine.
+              </p>
+            </div>
+            
+            {/* Quality */}
+            <div className="text-center p-6 rounded-xl hover:shadow-lg transition-shadow">
+              <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-desi-orange/10 mb-5">
+                <Award className="text-desi-orange" size={28} />
+              </div>
+              <h3 className="text-xl font-display font-medium mb-3">Premium Quality</h3>
+              <p className="text-gray-600">
+                We use only the finest ingredients and authentic spices, ensuring every bite delivers a premium culinary experience.
+              </p>
+            </div>
+            
+            {/* Love */}
+            <div className="text-center p-6 rounded-xl hover:shadow-lg transition-shadow">
+              <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-desi-orange/10 mb-5">
+                <Heart className="text-desi-orange" size={28} />
+              </div>
+              <h3 className="text-xl font-display font-medium mb-3">Made with Love</h3>
+              <p className="text-gray-600">
+                Every dish is prepared with care and passion, bringing the warmth and love of home-cooked meals to our food truck.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+      
+      {/* Bestsellers Section */}
+      <section className="py-20 bg-desi-cream">
+        <div className="container mx-auto px-4 md:px-6">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-display font-bold mb-4">
+              Our Bestsellers
+            </h2>
+            <p className="text-gray-600 max-w-2xl mx-auto">
+              Try our crowd favorites, featuring our signature biryanis and flavorful curries 
+              that have made us a local favorite.
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {bestsellers.map((item, index) => <BestsellerCard key={index} title={item.title} description={item.description} price={item.price} imageSrc={item.imageSrc} isSpecial={item.isSpecial} delay={index * 100} />)}
+          </div>
+          
+          <div className="mt-12 text-center">
+            <Link to="/menu" className="inline-flex items-center text-desi-orange hover:text-desi-orange/80 font-medium transition-colors">
+              <span>View Full Menu</span>
+              <ChevronRight size={16} className="ml-1" />
+            </Link>
           </div>
         </div>
       </section>
@@ -96,59 +175,88 @@ Katy, Texas, 77450</p>
           </div>
         </div>
       </section>
-      
-      {/* Bestsellers Section */}
-      <section className="py-20 bg-desi-cream">
+
+      {/* Customer Reviews Section */}
+      <section className="py-20 bg-desi-black text-white">
         <div className="container mx-auto px-4 md:px-6">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-display font-bold mb-4">
-              Our Bestsellers
+              What Our Customers Say
             </h2>
-            <p className="text-gray-600 max-w-2xl mx-auto">
-              Try our crowd favorites, featuring our signature biryanis and flavorful curries 
-              that have made us a local favorite.
+            <p className="text-gray-300 max-w-2xl mx-auto">
+              Don't just take our word for it - hear what our satisfied customers have to say about their Desi Flavors experience.
             </p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {bestsellers.map((item, index) => <BestsellerCard key={index} title={item.title} description={item.description} price={item.price} imageSrc={item.imageSrc} isSpecial={item.isSpecial} delay={index * 100} />)}
-          </div>
-          
-          <div className="mt-12 text-center">
-            <Link to="/menu" className="inline-flex items-center text-desi-orange hover:text-desi-orange/80 font-medium transition-colors">
-              <span>View Full Menu</span>
-              <ChevronRight size={16} className="ml-1" />
-            </Link>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+            {/* Review 1 */}
+            <div className="bg-white/10 backdrop-blur-sm p-6 rounded-xl border border-white/10">
+              <div className="flex items-center text-desi-orange mb-3">
+                {[...Array(5)].map((_, i) => (
+                  <Star key={i} size={16} fill="currentColor" />
+                ))}
+              </div>
+              <p className="text-gray-300 mb-4">
+                "The chicken biryani from Desi Flavors is hands down the best I've had in Houston. Authentic flavors that remind me of home!"
+              </p>
+              <div className="font-medium">- Sarah M.</div>
+            </div>
+            
+            {/* Review 2 */}
+            <div className="bg-white/10 backdrop-blur-sm p-6 rounded-xl border border-white/10">
+              <div className="flex items-center text-desi-orange mb-3">
+                {[...Array(5)].map((_, i) => (
+                  <Star key={i} size={16} fill="currentColor" />
+                ))}
+              </div>
+              <p className="text-gray-300 mb-4">
+                "I love that their food is always fresh and flavorful. The butter chicken is creamy perfection! My weekly comfort food."
+              </p>
+              <div className="font-medium">- David L.</div>
+            </div>
+            
+            {/* Review 3 */}
+            <div className="bg-white/10 backdrop-blur-sm p-6 rounded-xl border border-white/10">
+              <div className="flex items-center text-desi-orange mb-3">
+                {[...Array(5)].map((_, i) => (
+                  <Star key={i} size={16} fill="currentColor" />
+                ))}
+              </div>
+              <p className="text-gray-300 mb-4">
+                "The vegetable samosas are crispy on the outside and perfectly spiced on the inside. Great friendly service too!"
+              </p>
+              <div className="font-medium">- Priya K.</div>
+            </div>
           </div>
         </div>
       </section>
       
       {/* CTA Section */}
-      <section className="bg-desi-black text-white py-20">
+      <section className="bg-desi-cream text-desi-black py-20">
         <div className="container mx-auto px-4 md:px-6">
           <div className="flex flex-col md:flex-row items-center justify-between gap-10">
             <div className="md:w-1/2">
               <h2 className="text-3xl md:text-4xl font-display font-bold mb-4">
                 Connect With Us
               </h2>
-              <p className="text-gray-300 mb-6">
+              <p className="text-gray-600 mb-6">
                 Follow us on social media to stay updated with our latest specials, locations, 
                 and mouthwatering food photos.
               </p>
-              <SocialLinks iconColor="text-white" iconSize={28} />
+              <SocialLinks iconColor="text-desi-black" iconSize={28} />
             </div>
             
             <div className="md:w-1/2 mt-8 md:mt-0">
-              <div className="bg-desi-gray/30 backdrop-blur-sm p-8 rounded-xl border border-white/10">
+              <div className="bg-white p-8 rounded-xl shadow-md">
                 <h3 className="text-xl font-display font-medium mb-4">
                   Join Our Mailing List
                 </h3>
-                <p className="text-gray-300 mb-4">
+                <p className="text-gray-600 mb-4">
                   Subscribe to receive updates on specials, new menu items, and truck locations.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-3">
-                  <input type="email" placeholder="Your email address" className="px-4 py-3 bg-white/10 border border-white/20 rounded-lg focus:outline-none 
-                      focus:ring-2 focus:ring-desi-orange text-white w-full" />
+                  <input type="email" placeholder="Your email address" className="px-4 py-3 bg-white border border-gray-300 rounded-lg focus:outline-none 
+                      focus:ring-2 focus:ring-desi-orange w-full" />
                   <button className="bg-desi-orange hover:bg-desi-orange/90 text-white px-6 py-3 
                     rounded-lg font-medium transition-all whitespace-nowrap">
                     Subscribe

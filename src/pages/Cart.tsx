@@ -15,7 +15,6 @@ import { toast } from '@/components/ui/use-toast';
 const Cart = () => {
   const { cartItems, removeFromCart, updateQuantity, clearCart, getCartTotal } = useCart();
   const [deliveryMethod, setDeliveryMethod] = useState<'pickup' | 'delivery'>('pickup');
-  const [isProcessing, setIsProcessing] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -31,22 +30,12 @@ const Cart = () => {
       });
       return;
     }
-
-    setIsProcessing(true);
     
-    // Simulate processing
-    setTimeout(() => {
-      toast({
-        title: "Order Placed Successfully!",
-        description: deliveryMethod === 'pickup' 
-          ? "Your order is confirmed for pickup. Please arrive at our location in 20-30 minutes." 
-          : "Your order has been sent to our delivery partner and will arrive in 30-45 minutes.",
-      });
-      
-      clearCart();
-      setIsProcessing(false);
-      navigate('/');
-    }, 2000);
+    // Save delivery method to localStorage
+    localStorage.setItem('deliveryMethod', deliveryMethod);
+    
+    // Navigate to payment page
+    navigate('/payment');
   };
 
   const deliveryFee = deliveryMethod === 'delivery' ? 3.99 : 0;
@@ -61,7 +50,7 @@ const Cart = () => {
         <div className="container mx-auto px-4 md:px-6">
           <h1 className="text-2xl md:text-4xl font-display font-bold mb-2">Your Cart</h1>
           <div className="flex items-center text-gray-600">
-            <Link to="/menu" className="flex items-center hover:text-desi-orange transition-colors">
+            <Link to="/order" className="flex items-center hover:text-desi-orange transition-colors">
               <ArrowLeft size={16} className="mr-1" />
               <span>Continue Shopping</span>
             </Link>
@@ -80,7 +69,7 @@ const Cart = () => {
               <h2 className="text-xl font-display font-medium mb-2">Your cart is empty</h2>
               <p className="text-gray-600 mb-6">Looks like you haven't added anything to your cart yet.</p>
               <Link 
-                to="/menu" 
+                to="/order" 
                 className="inline-block bg-desi-orange hover:bg-desi-orange/90 text-white px-6 py-3 rounded-full transition-colors"
               >
                 Browse Menu
@@ -123,6 +112,11 @@ const Cart = () => {
                               )}
                             </h3>
                             <p className="text-gray-600 text-sm">{item.description}</p>
+                            {item.specialInstructions && (
+                              <p className="text-gray-500 text-xs mt-1 italic">
+                                Special instructions: {item.specialInstructions}
+                              </p>
+                            )}
                             <p className="text-desi-orange font-medium mt-1">{item.price}</p>
                           </div>
                         </div>
@@ -206,10 +200,10 @@ const Cart = () => {
                   
                   <button
                     onClick={handleCheckout}
-                    disabled={cartItems.length === 0 || isProcessing}
+                    disabled={cartItems.length === 0}
                     className="w-full mt-6 bg-desi-orange hover:bg-desi-orange/90 text-white py-3 px-4 rounded-lg font-medium transition-colors disabled:opacity-70 disabled:cursor-not-allowed"
                   >
-                    {isProcessing ? 'Processing...' : 'Proceed to Checkout'}
+                    Proceed to Checkout
                   </button>
                   
                   <p className="text-xs text-gray-500 mt-4 text-center">

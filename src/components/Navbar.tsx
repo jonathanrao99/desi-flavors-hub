@@ -56,14 +56,14 @@ const Navbar = () => {
           <Link to="/" className="nav-link font-medium">
             Home
           </Link>
+          <Link to="/order" className="nav-link font-medium">
+            Order
+          </Link>
           <Link to="/menu" className="nav-link font-medium">
             Menu
           </Link>
           <Link to="/about" className="nav-link font-medium">
             About Us
-          </Link>
-          <Link to="/order" className="nav-link font-medium">
-            Order
           </Link>
           <Link to="/cart" className="nav-link font-medium relative">
             <ShoppingCart size={20} />
@@ -106,6 +106,12 @@ const Navbar = () => {
               Home
             </Link>
             <Link 
+              to="/order" 
+              className="px-4 py-2 hover:bg-desi-orange/10 rounded-md transition-colors text-desi-black hover:text-desi-orange"
+            >
+              Order
+            </Link>
+            <Link 
               to="/menu" 
               className="px-4 py-2 hover:bg-desi-orange/10 rounded-md transition-colors text-desi-black hover:text-desi-orange"
             >
@@ -116,12 +122,6 @@ const Navbar = () => {
               className="px-4 py-2 hover:bg-desi-orange/10 rounded-md transition-colors text-desi-black hover:text-desi-orange"
             >
               About Us
-            </Link>
-            <Link 
-              to="/order" 
-              className="px-4 py-2 hover:bg-desi-orange/10 rounded-md transition-colors text-desi-black hover:text-desi-orange"
-            >
-              Order
             </Link>
           </nav>
         </div>

@@ -10,6 +10,7 @@ export interface CartItem {
   quantity: number;
   isVegetarian?: boolean;
   isSpicy?: boolean;
+  specialInstructions?: string;
 }
 
 interface CartContextType {
@@ -35,6 +36,11 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
         // Item exists, update quantity
         const updatedItems = [...prevItems];
         updatedItems[existingItemIndex].quantity += 1;
+        
+        // If there are special instructions, update them
+        if (item.specialInstructions) {
+          updatedItems[existingItemIndex].specialInstructions = item.specialInstructions;
+        }
         
         toast({
           title: 'Item quantity updated',
