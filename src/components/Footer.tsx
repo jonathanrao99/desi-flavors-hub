@@ -1,3 +1,4 @@
+
 import { Link } from 'react-router-dom';
 import { Facebook, Instagram, Twitter } from 'lucide-react';
 const Footer = () => {
@@ -33,13 +34,18 @@ const Footer = () => {
                 </Link>
               </li>
               <li>
-                <Link to="/gallery" className="text-gray-300 hover:text-desi-orange transition-colors duration-200">
-                  Gallery
+                <Link to="/about" className="text-gray-300 hover:text-desi-orange transition-colors duration-200">
+                  About Us
                 </Link>
               </li>
               <li>
                 <Link to="/order" className="text-gray-300 hover:text-desi-orange transition-colors duration-200">
                   Order Online
+                </Link>
+              </li>
+              <li>
+                <Link to="/cart" className="text-gray-300 hover:text-desi-orange transition-colors duration-200">
+                  Cart
                 </Link>
               </li>
             </ul>

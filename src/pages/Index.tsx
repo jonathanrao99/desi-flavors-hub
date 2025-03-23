@@ -39,11 +39,11 @@ const Index = () => {
       {/* Hero Section */}
       <section className="relative flex min-h-screen items-center justify-center overflow-hidden bg-desi-black text-white py-20">
         <div className="absolute inset-0 z-0">
-          <div className="absolute inset-0 bg-gradient-to-b from-desi-black/80 to-desi-black/95"></div>
+          <div className="absolute inset-0 bg-gradient-to-b from-desi-black/70 to-desi-black/95"></div>
           <img 
-            src="https://images.unsplash.com/photo-1585937421612-70a008356c36?auto=format&fit=crop&q=80&w=2070" 
-            alt="Hero background - Indian food" 
-            className="h-full w-full object-cover opacity-40"
+            src="/lovable-uploads/0e914dde-161a-4d12-bd85-4803d3a6dca2.png" 
+            alt="Desi Flavors Food Truck" 
+            className="h-full w-full object-cover opacity-60"
           />
         </div>
         

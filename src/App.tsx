@@ -10,28 +10,33 @@ import Footer from "./components/Footer";
 
 import Index from "./pages/Index";
 import Menu from "./pages/Menu";
-import Gallery from "./pages/Gallery";
+import About from "./pages/About";
 import Order from "./pages/Order";
+import Cart from "./pages/Cart";
 import NotFound from "./pages/NotFound";
+import { CartProvider } from "./context/CartContext";
 
 const queryClient = new QueryClient();
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        <Navbar />
-        <Routes>
-          <Route path="/" element={<Index />} />
-          <Route path="/menu" element={<Menu />} />
-          <Route path="/gallery" element={<Gallery />} />
-          <Route path="/order" element={<Order />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-        <Footer />
-      </BrowserRouter>
+      <CartProvider>
+        <Toaster />
+        <Sonner />
+        <BrowserRouter>
+          <Navbar />
+          <Routes>
+            <Route path="/" element={<Index />} />
+            <Route path="/menu" element={<Menu />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/order" element={<Order />} />
+            <Route path="/cart" element={<Cart />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+          <Footer />
+        </BrowserRouter>
+      </CartProvider>
     </TooltipProvider>
   </QueryClientProvider>
 );

@@ -1,6 +1,8 @@
 
 import { useState, useEffect } from 'react';
-import { ChevronDown } from 'lucide-react';
+import { ChevronDown, ShoppingCart } from 'lucide-react';
+import { useCart } from '@/context/CartContext';
+import { toast } from '@/components/ui/use-toast';
 
 interface MenuItem {
   id: number;
@@ -15,6 +17,7 @@ interface MenuItem {
 const Menu = () => {
   const [activeCategory, setActiveCategory] = useState<string>('Biryani');
   const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
+  const { addToCart } = useCart();
 
   // Sample menu data
   const allMenuItems: MenuItem[] = [
@@ -141,6 +144,10 @@ const Menu = () => {
     window.scrollTo(0, 0);
   }, []);
 
+  const handleAddToCart = (item: MenuItem) => {
+    addToCart(item);
+  };
+
   return (
     <main className="min-h-screen pt-24 pb-20">
       {/* Menu Header */}
@@ -217,7 +224,7 @@ const Menu = () => {
               >
                 <div className="p-6">
                   <div className="flex justify-between items-start">
-                    <div>
+                    <div className="flex-1">
                       <h3 className="font-display font-medium text-xl text-desi-black mb-1 flex items-center">
                         {item.name}
                         {item.isVegetarian && (
@@ -233,7 +240,16 @@ const Menu = () => {
                       </h3>
                       <p className="text-gray-600 text-sm">{item.description}</p>
                     </div>
-                    <span className="font-medium text-desi-orange">{item.price}</span>
+                    <div className="flex flex-col items-end">
+                      <span className="font-medium text-desi-orange">{item.price}</span>
+                      <button 
+                        onClick={() => handleAddToCart(item)}
+                        className="mt-2 flex items-center text-sm text-desi-orange hover:text-desi-orange/80 transition-colors"
+                      >
+                        <ShoppingCart size={16} className="mr-1" />
+                        Add to Cart
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>

@@ -1,12 +1,14 @@
 
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, ShoppingCart } from 'lucide-react';
+import { useCart } from '@/context/CartContext';
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const location = useLocation();
+  const { cartItems } = useCart();
 
   // Handle scroll effect
   useEffect(() => {
@@ -26,6 +28,9 @@ const Navbar = () => {
   useEffect(() => {
     setIsMobileMenuOpen(false);
   }, [location]);
+
+  // Count total items in cart
+  const itemCount = cartItems.reduce((total, item) => total + item.quantity, 0);
 
   return (
     <header 
@@ -54,22 +59,40 @@ const Navbar = () => {
           <Link to="/menu" className="nav-link font-medium">
             Menu
           </Link>
-          <Link to="/gallery" className="nav-link font-medium">
-            Gallery
+          <Link to="/about" className="nav-link font-medium">
+            About Us
           </Link>
           <Link to="/order" className="nav-link font-medium">
             Order
           </Link>
+          <Link to="/cart" className="nav-link font-medium relative">
+            <ShoppingCart size={20} />
+            {itemCount > 0 && (
+              <span className="absolute -top-2 -right-2 bg-desi-orange text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+                {itemCount}
+              </span>
+            )}
+          </Link>
         </nav>
 
         {/* Mobile Menu Button */}
-        <button 
-          className="md:hidden text-desi-black hover:text-desi-orange transition-colors"
-          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          aria-label="Toggle menu"
-        >
-          {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-        </button>
+        <div className="md:hidden flex items-center space-x-4">
+          <Link to="/cart" className="relative mr-2">
+            <ShoppingCart size={20} className="text-desi-black" />
+            {itemCount > 0 && (
+              <span className="absolute -top-2 -right-2 bg-desi-orange text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+                {itemCount}
+              </span>
+            )}
+          </Link>
+          <button 
+            className="text-desi-black hover:text-desi-orange transition-colors"
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            aria-label="Toggle menu"
+          >
+            {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
+        </div>
       </div>
 
       {/* Mobile Navigation */}
@@ -89,10 +112,10 @@ const Navbar = () => {
               Menu
             </Link>
             <Link 
-              to="/gallery" 
+              to="/about" 
               className="px-4 py-2 hover:bg-desi-orange/10 rounded-md transition-colors text-desi-black hover:text-desi-orange"
             >
-              Gallery
+              About Us
             </Link>
             <Link 
               to="/order" 
