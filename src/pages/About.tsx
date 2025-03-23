@@ -9,18 +9,18 @@ const About = () => {
     window.scrollTo(0, 0);
   }, []);
 
-  // Team members
+  // Team members - Updated names
   const team = [
     {
-      name: 'Priya Sharma',
+      name: 'Jaladevi Thota',
       role: 'Founder & Head Chef',
-      bio: 'Priya brings 15 years of culinary expertise from Northern India, specializing in traditional biryani recipes passed down through generations.',
+      bio: 'Jaladevi brings 15 years of culinary expertise from Northern India, specializing in traditional biryani recipes passed down through generations.',
       image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=600'
     },
     {
-      name: 'Raj Patel',
+      name: 'Venu Thota',
       role: 'Manager & Sous Chef',
-      bio: 'Raj ensures smooth operations and assists with menu development, bringing his knowledge of Gujarat region specialties to our offerings.',
+      bio: 'Venu ensures smooth operations and assists with menu development, bringing his knowledge of Gujarat region specialties to our offerings.',
       image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=600'
     }
   ];
@@ -166,7 +166,7 @@ const About = () => {
         </div>
       </section>
       
-      {/* Meet the Team */}
+      {/* Meet the Team - Updated names */}
       <section className="py-16 bg-white">
         <div className="container mx-auto px-4 md:px-6">
           <h2 className="text-2xl md:text-3xl font-display font-bold mb-10 text-center">

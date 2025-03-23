@@ -1,4 +1,3 @@
-
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { ChevronRight, Star, Clock, MapPin, Utensils, Heart, Award, Check, Bookmark } from 'lucide-react';
@@ -50,7 +49,7 @@ const Index = () => {
             <div className="flex items-center justify-center mb-6 animate-fade-in-delay">
               <span className="bg-white/10 text-white px-4 py-1 rounded-full text-sm font-medium border border-white/20 flex items-center">
                 <Check size={16} className="mr-1 text-desi-orange" /> 
-                100% Halal Certified
+                100% Halal
               </span>
             </div>
             <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in-delay">
@@ -142,47 +141,8 @@ const Index = () => {
           </div>
         </div>
       </section>
-      
-      {/* Features Section */}
-      <section className="py-20 bg-white">
-        <div className="container mx-auto px-4 md:px-6">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
-            {/* Feature 1 */}
-            <div className="text-center p-6 rounded-xl hover:shadow-md transition-shadow">
-              <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-desi-orange/10 mb-5">
-                <MapPin className="text-desi-orange" size={28} />
-              </div>
-              <h3 className="text-xl font-display font-medium mb-3">Food Truck Location</h3>
-              <p className="text-gray-600">20607 Westheimer PKWY
-Katy, Texas, 77450</p>
-            </div>
-            
-            {/* Feature 2 */}
-            <div className="text-center p-6 rounded-xl hover:shadow-md transition-shadow">
-              <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-desi-orange/10 mb-5">
-                <Star className="text-desi-orange" size={28} />
-              </div>
-              <h3 className="text-xl font-display font-medium mb-3">Authentic Recipes</h3>
-              <p className="text-gray-600">
-                Family recipes passed down through generations, bringing you the true taste of India.
-              </p>
-            </div>
-            
-            {/* Feature 3 */}
-            <div className="text-center p-6 rounded-xl hover:shadow-md transition-shadow">
-              <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-desi-orange/10 mb-5">
-                <Clock className="text-desi-orange" size={28} />
-              </div>
-              <h3 className="text-xl font-display font-medium mb-3">Fresh Ingredients</h3>
-              <p className="text-gray-600">
-                We use only the freshest ingredients and authentic spices to create our flavorful dishes.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
 
-      {/* NEW SECTION: Our Commitment to Quality */}
+      {/* Our Commitment to Quality - UPDATED LAYOUT */}
       <section className="py-20 bg-gradient-to-b from-desi-cream to-white">
         <div className="container mx-auto px-4 md:px-6">
           <div className="text-center mb-12">
@@ -195,58 +155,57 @@ Katy, Texas, 77450</p>
           </div>
           
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
-            <div className="order-2 lg:order-1">
-              <div className="space-y-6">
-                <div className="flex items-start">
-                  <div className="flex-shrink-0 mt-1">
-                    <div className="flex items-center justify-center w-8 h-8 rounded-full bg-desi-orange text-white">
-                      <Check size={16} />
-                    </div>
-                  </div>
-                  <div className="ml-4">
-                    <h3 className="text-lg font-medium text-gray-900">100% Halal Certified</h3>
-                    <p className="mt-1 text-gray-600">All our meat is sourced from certified Halal suppliers, ensuring the highest standards of quality and religious compliance.</p>
+            <div className="space-y-6">
+              <div className="flex items-start">
+                <div className="flex-shrink-0 mt-1">
+                  <div className="flex items-center justify-center w-8 h-8 rounded-full bg-desi-orange text-white">
+                    <Check size={16} />
                   </div>
                 </div>
-                
-                <div className="flex items-start">
-                  <div className="flex-shrink-0 mt-1">
-                    <div className="flex items-center justify-center w-8 h-8 rounded-full bg-desi-orange text-white">
-                      <Check size={16} />
-                    </div>
-                  </div>
-                  <div className="ml-4">
-                    <h3 className="text-lg font-medium text-gray-900">Authentic Spices</h3>
-                    <p className="mt-1 text-gray-600">We import and blend our spices using traditional methods to create the perfect balance of flavors in every dish.</p>
+                <div className="ml-4">
+                  <h3 className="text-lg font-medium text-gray-900">100% Halal</h3>
+                  <p className="mt-1 text-gray-600">All our meat is sourced from certified Halal suppliers, ensuring the highest standards of quality and religious compliance.</p>
+                </div>
+              </div>
+              
+              <div className="flex items-start">
+                <div className="flex-shrink-0 mt-1">
+                  <div className="flex items-center justify-center w-8 h-8 rounded-full bg-desi-orange text-white">
+                    <Check size={16} />
                   </div>
                 </div>
-                
-                <div className="flex items-start">
-                  <div className="flex-shrink-0 mt-1">
-                    <div className="flex items-center justify-center w-8 h-8 rounded-full bg-desi-orange text-white">
-                      <Check size={16} />
-                    </div>
-                  </div>
-                  <div className="ml-4">
-                    <h3 className="text-lg font-medium text-gray-900">No Artificial Ingredients</h3>
-                    <p className="mt-1 text-gray-600">We cook with real ingredients—no artificial colors, flavors, or preservatives in any of our dishes.</p>
+                <div className="ml-4">
+                  <h3 className="text-lg font-medium text-gray-900">Authentic Spices</h3>
+                  <p className="mt-1 text-gray-600">We import and blend our spices using traditional methods to create the perfect balance of flavors in every dish.</p>
+                </div>
+              </div>
+              
+              <div className="flex items-start">
+                <div className="flex-shrink-0 mt-1">
+                  <div className="flex items-center justify-center w-8 h-8 rounded-full bg-desi-orange text-white">
+                    <Check size={16} />
                   </div>
                 </div>
-                
-                <div className="flex items-start">
-                  <div className="flex-shrink-0 mt-1">
-                    <div className="flex items-center justify-center w-8 h-8 rounded-full bg-desi-orange text-white">
-                      <Check size={16} />
-                    </div>
+                <div className="ml-4">
+                  <h3 className="text-lg font-medium text-gray-900">No Artificial Ingredients</h3>
+                  <p className="mt-1 text-gray-600">We cook with real ingredients—no artificial colors, flavors, or preservatives in any of our dishes.</p>
+                </div>
+              </div>
+              
+              <div className="flex items-start">
+                <div className="flex-shrink-0 mt-1">
+                  <div className="flex items-center justify-center w-8 h-8 rounded-full bg-desi-orange text-white">
+                    <Check size={16} />
                   </div>
-                  <div className="ml-4">
-                    <h3 className="text-lg font-medium text-gray-900">Made Fresh Daily</h3>
-                    <p className="mt-1 text-gray-600">Every dish is prepared fresh each day, ensuring you get the best taste and quality with every order.</p>
-                  </div>
+                </div>
+                <div className="ml-4">
+                  <h3 className="text-lg font-medium text-gray-900">Made Fresh Daily</h3>
+                  <p className="mt-1 text-gray-600">Every dish is prepared fresh each day, ensuring you get the best taste and quality with every order.</p>
                 </div>
               </div>
             </div>
-            <div className="order-1 lg:order-2 flex justify-center">
+            
+            <div className="flex justify-center">
               <div className="relative">
                 <div className="absolute -inset-4 bg-desi-orange/10 rounded-2xl transform rotate-3"></div>
                 <img 
