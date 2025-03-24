@@ -8,14 +8,21 @@ const QualityCommitmentSection = () => {
         </h2>
         
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
-          {/* Image visible at the top on mobile, right on desktop */}
+          {/* Image with orange squares design */}
           <div className="order-1 lg:order-2">
-            <div className="overflow-hidden rounded-lg shadow-md">
-              <img 
-                src="https://images.unsplash.com/photo-1505253758473-96b7015fcd40?auto=format&fit=crop&q=80&w=800"
-                alt="Fresh ingredients for our food"
-                className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
-              />
+            <div className="relative w-full max-w-md mx-auto">
+              {/* Orange square decorations */}
+              <div className="absolute -top-4 -right-4 w-24 h-24 bg-desi-orange/20 rounded-lg z-0"></div>
+              <div className="absolute -bottom-4 -left-4 w-32 h-32 bg-desi-orange/10 rounded-lg z-0"></div>
+              
+              {/* Main image */}
+              <div className="overflow-hidden rounded-lg shadow-md relative z-10">
+                <img 
+                  src="https://images.unsplash.com/photo-1505253758473-96b7015fcd40?auto=format&fit=crop&q=80&w=800"
+                  alt="Fresh ingredients for our food"
+                  className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+                />
+              </div>
             </div>
           </div>
           

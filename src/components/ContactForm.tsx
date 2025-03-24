@@ -12,12 +12,19 @@ const ContactForm = () => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
-    message: ''
+    phone: '',
+    message: '',
+    subscribedToNewsletter: false
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
+  };
+
+  const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, checked } = e.target;
+    setFormData(prev => ({ ...prev, [name]: checked }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -27,7 +34,7 @@ const ContactForm = () => {
     if (!formData.name || !formData.email || !formData.message) {
       toast({
         title: "Error",
-        description: "Please fill in all fields",
+        description: "Please fill in all required fields",
         variant: "destructive",
       });
       return;
@@ -60,7 +67,13 @@ const ContactForm = () => {
       });
       
       // Reset form
-      setFormData({ name: '', email: '', message: '' });
+      setFormData({ 
+        name: '', 
+        email: '', 
+        phone: '', 
+        message: '', 
+        subscribedToNewsletter: false 
+      });
       
     } catch (error) {
       console.error('Error submitting form:', error);
@@ -77,7 +90,7 @@ const ContactForm = () => {
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
       <div className="space-y-2">
-        <Label htmlFor="name">Your Name</Label>
+        <Label htmlFor="name">Your Name*</Label>
         <Input 
           id="name"
           name="name" 
@@ -89,7 +102,7 @@ const ContactForm = () => {
       </div>
       
       <div className="space-y-2">
-        <Label htmlFor="email">Email Address</Label>
+        <Label htmlFor="email">Email Address*</Label>
         <Input 
           id="email"
           name="email" 
@@ -102,7 +115,19 @@ const ContactForm = () => {
       </div>
       
       <div className="space-y-2">
-        <Label htmlFor="message">Your Message</Label>
+        <Label htmlFor="phone">Phone Number (Optional)</Label>
+        <Input 
+          id="phone"
+          name="phone" 
+          type="tel"
+          placeholder="(123) 456-7890"
+          value={formData.phone}
+          onChange={handleChange}
+        />
+      </div>
+      
+      <div className="space-y-2">
+        <Label htmlFor="message">Your Message*</Label>
         <Textarea 
           id="message"
           name="message"
@@ -112,6 +137,20 @@ const ContactForm = () => {
           onChange={handleChange}
           required
         />
+      </div>
+      
+      <div className="flex items-start space-x-2">
+        <input
+          type="checkbox"
+          id="subscribedToNewsletter"
+          name="subscribedToNewsletter"
+          checked={formData.subscribedToNewsletter}
+          onChange={handleCheckboxChange}
+          className="mt-1"
+        />
+        <label htmlFor="subscribedToNewsletter" className="text-sm text-gray-600">
+          Subscribe to our newsletter to receive updates on specials and promotions
+        </label>
       </div>
       
       <Button 

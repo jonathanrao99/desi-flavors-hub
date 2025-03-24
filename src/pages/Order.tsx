@@ -1,7 +1,6 @@
-
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Phone, Calendar, ShoppingCart, Plus, Minus, Star } from 'lucide-react';
+import { Phone, Calendar, ShoppingCart, Plus, Minus, Star, Clock } from 'lucide-react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -178,14 +177,12 @@ const Order = () => {
 
   const handleAddToCart = () => {
     if (selectedItem && quantity > 0) {
-      // Create a modified item with quantity and special instructions to add to cart
       const itemToAdd = {
         ...selectedItem,
         quantity: quantity,
         specialInstructions: specialInstructions.trim() || undefined
       };
       
-      // Pass the entire item object to the context's addToCart function
       addToCart(itemToAdd);
       setIsDialogOpen(false);
       
@@ -214,15 +211,15 @@ const Order = () => {
         </div>
       </section>
       
-      <section className="bg-white py-12 border-b border-gray-100 sticky top-20 z-10">
+      <section className="bg-white py-12 border-b border-gray-100 sticky top-16 z-10 shadow-sm transition-all duration-300">
         <div className="container mx-auto px-4 md:px-6">
-          <div className="flex justify-center flex-wrap gap-2 mb-8">
+          <div className="flex justify-center flex-wrap gap-2">
             <button
               onClick={() => handleCategoryClick('All')}
-              className={`px-6 py-3 rounded-full text-sm font-medium transition-all ${
+              className={`px-6 py-2 rounded-full text-sm font-medium transition-all ${
                 activeCategory === 'All'
                   ? 'bg-desi-orange text-white shadow-md'
-                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                  : 'bg-gray-100/80 text-gray-700 hover:bg-gray-200/80'
               }`}
             >
               All Items
@@ -231,10 +228,10 @@ const Order = () => {
               <button
                 key={category}
                 onClick={() => handleCategoryClick(category)}
-                className={`px-6 py-3 rounded-full text-sm font-medium transition-all ${
+                className={`px-6 py-2 rounded-full text-sm font-medium transition-all ${
                   category === activeCategory
                     ? 'bg-desi-orange text-white shadow-md'
-                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                    : 'bg-gray-100/80 text-gray-700 hover:bg-gray-200/80'
                 }`}
               >
                 {category}
@@ -302,7 +299,7 @@ const Order = () => {
       </section>
 
       <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-        <DialogContent className="sm:max-w-md">
+        <DialogContent className="sm:max-w-lg w-[95vw] max-h-[90vh] overflow-y-auto">
           <DialogHeader>
             <DialogTitle className="text-xl font-display">
               {selectedItem?.name}
@@ -320,7 +317,7 @@ const Order = () => {
           </DialogHeader>
           <div className="space-y-4 py-2">
             {selectedItem?.imageSrc && (
-              <div className="relative h-48 w-full overflow-hidden rounded-md">
+              <div className="relative h-44 w-full overflow-hidden rounded-md">
                 <img 
                   src={selectedItem.imageSrc} 
                   alt={selectedItem.name} 
@@ -385,7 +382,7 @@ const Order = () => {
         </DialogContent>
       </Dialog>
       
-      <section className="py-16 bg-desi-cream">
+      <section className="py-12 bg-desi-cream">
         <div className="container mx-auto px-4 md:px-6">
           <h2 className="text-2xl md:text-3xl font-display font-bold mb-10 text-center">
             Other Ways to Enjoy Our Food
@@ -399,26 +396,75 @@ const Order = () => {
               <h3 className="font-display font-medium text-xl mb-3">
                 Visit Our Food Truck
               </h3>
-              <p className="text-gray-600 mb-4">20607 WestHeimer PKWY
-Katy, Texas, 77450</p>
-              <div className="flex mt-6">
+              <p className="text-gray-600 mb-4">
+                20607 Westheimer PKWY<br />
+                Katy, Texas, 77450
+              </p>
+              <div className="flex items-start mt-4 mb-6">
+                <Clock className="text-desi-orange mt-1 mr-3" size={20} />
+                <div>
+                  <h4 className="font-medium">Operating Hours</h4>
+                  <p className="text-gray-600">
+                    Mon - Thurs: 4PM - 11PM<br />
+                    Fri - Sun: 1PM - 11PM
+                  </p>
+                </div>
+              </div>
+              <div className="flex mt-4">
                 <SocialLinks spacing="space-x-4" iconSize={20} />
               </div>
             </div>
             
             <div className="bg-white rounded-xl shadow-md p-8 hover:shadow-lg transition-shadow">
               <div className="inline-flex items-center justify-center w-14 h-14 rounded-full bg-desi-orange/10 mb-6">
-                <Phone className="text-desi-orange" size={24} />
+                <svg 
+                  xmlns="http://www.w3.org/2000/svg" 
+                  width="24" 
+                  height="24" 
+                  viewBox="0 0 24 24" 
+                  fill="none" 
+                  stroke="currentColor" 
+                  strokeWidth="2" 
+                  strokeLinecap="round" 
+                  strokeLinejoin="round"
+                  className="text-desi-orange"
+                >
+                  <path d="M3 21l1.65-3.8a9 9 0 1 1 3.4 2.9L3 21" />
+                  <path d="M9 10a.5.5 0 0 0 1 0V9a.5.5 0 0 0-1 0v1Z" />
+                  <path d="M14 10a.5.5 0 0 0 1 0V9a.5.5 0 0 0-1 0v1Z" />
+                  <path d="M9.5 13.5c.5 1 1.5 1 2.5 1s2-.5 2.5-1" />
+                </svg>
               </div>
               <h3 className="font-display font-medium text-xl mb-3">
-                Phone Orders
+                WhatsApp Orders
               </h3>
               <p className="text-gray-600 mb-4">
-                Call us directly to place your order for pickup. We'll have it ready when you arrive at 
+                Message us directly on WhatsApp to place your order for pickup. We'll have it ready when you arrive at 
                 our food truck.
               </p>
-              <a href="tel:+13468244212" className="inline-block mt-4 px-6 py-3 bg-desi-orange hover:bg-desi-orange/90 
-                  text-white rounded-full font-medium transition-colors">346-824-4212</a>
+              <a href="https://wa.me/13468244212" className="inline-block mt-4 px-6 py-3 bg-desi-orange hover:bg-desi-orange/90 
+                  text-white rounded-full font-medium transition-colors">
+                <span className="flex items-center">
+                  <svg 
+                    xmlns="http://www.w3.org/2000/svg" 
+                    width="20" 
+                    height="20" 
+                    viewBox="0 0 24 24" 
+                    fill="none" 
+                    stroke="currentColor" 
+                    strokeWidth="2" 
+                    strokeLinecap="round" 
+                    strokeLinejoin="round"
+                    className="mr-2"
+                  >
+                    <path d="M3 21l1.65-3.8a9 9 0 1 1 3.4 2.9L3 21" />
+                    <path d="M9 10a.5.5 0 0 0 1 0V9a.5.5 0 0 0-1 0v1Z" />
+                    <path d="M14 10a.5.5 0 0 0 1 0V9a.5.5 0 0 0-1 0v1Z" />
+                    <path d="M9.5 13.5c.5 1 1.5 1 2.5 1s2-.5 2.5-1" />
+                  </svg>
+                  346-824-4212
+                </span>
+              </a>
             </div>
           </div>
         </div>
