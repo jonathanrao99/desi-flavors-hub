@@ -1,5 +1,6 @@
 
 import { supabase } from "@/integrations/supabase/client";
+import type { Json } from "@/integrations/supabase/types";
 
 // Define order types
 export interface OrderItem {
@@ -17,7 +18,7 @@ export interface OrderData {
   items: OrderItem[];
   total_amount: number;
   delivery_address?: string;
-  pickup_time?: Date;
+  pickup_time?: string; // Changed from Date to string
   special_instructions?: string;
   order_type: 'pickup' | 'delivery';
   payment_id?: string;
@@ -26,16 +27,17 @@ export interface OrderData {
 // Submit order to database
 export const submitOrder = async (orderData: OrderData) => {
   try {
-    // Convert order items to JSON format
+    // Convert order items to JSON format and ensure pickup_time is a string
     const formattedOrder = {
       ...orderData,
-      items: JSON.stringify(orderData.items),
-      total_amount: Number(orderData.total_amount.toFixed(2))
+      items: JSON.stringify(orderData.items) as Json,
+      total_amount: Number(orderData.total_amount.toFixed(2)),
+      pickup_time: orderData.pickup_time || null
     };
     
     const { data, error } = await supabase
       .from('orders')
-      .insert([formattedOrder])
+      .insert(formattedOrder)
       .select();
     
     if (error) throw error;
