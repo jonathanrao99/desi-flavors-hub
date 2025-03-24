@@ -130,11 +130,24 @@ const ConnectSection = () => {
                   </div>
                 </div>
               </div>
+<<<<<<< HEAD
+              <div className="flex items-start">
+                <Clock className="text-desi-orange mr-4 mt-1" size={20} />
+                <div>
+                  <h4 className="font-medium">Operating Hours</h4>
+                  <p className="text-gray-600">
+                    Mon - Thurs: 4PM - 11PM<br />
+                    Fri - Sun: 1PM - 11PM
+                  </p>
+                </div>
+              </div>
+=======
               
               <div>
                 <h4 className="font-medium mb-3">Follow Us</h4>
                 <SocialLinks iconSize={24} spacing="space-x-5" />
               </div>
+>>>>>>> 79f5642d4c96e2d470860d40c341c1e34a03a3bb
             </div>
             
             
