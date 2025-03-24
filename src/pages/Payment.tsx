@@ -15,6 +15,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useCart } from '@/context/CartContext';
 import { toast } from '@/components/ui/use-toast';
+import { submitOrder } from '@/services/orderService';
 
 const Payment = () => {
   const navigate = useNavigate();
@@ -29,6 +30,12 @@ const Payment = () => {
   const [expiryDate, setExpiryDate] = useState('');
   const [cvv, setCvv] = useState('');
   const [billingZip, setBillingZip] = useState('');
+  
+  // Customer info state
+  const [customerName, setCustomerName] = useState('');
+  const [customerEmail, setCustomerEmail] = useState('');
+  const [customerPhone, setCustomerPhone] = useState('');
+  const [deliveryAddress, setDeliveryAddress] = useState('');
 
   // Calculate order totals
   const subtotal = getCartTotal();
@@ -87,10 +94,47 @@ const Payment = () => {
     setExpiryDate(formatted);
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const formatPhoneNumber = (value: string) => {
+    const v = value.replace(/\D/g, '');
+    
+    if (v.length <= 3) {
+      return v;
+    } else if (v.length <= 6) {
+      return `(${v.slice(0, 3)}) ${v.slice(3)}`;
+    } else {
+      return `(${v.slice(0, 3)}) ${v.slice(3, 6)}-${v.slice(6, 10)}`;
+    }
+  };
+
+  const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const formatted = formatPhoneNumber(e.target.value);
+    setCustomerPhone(formatted);
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    // Simple validation
+    // Validate customer info
+    if (!customerName || !customerEmail || !customerPhone) {
+      toast({
+        title: "Missing information",
+        description: "Please fill in all customer information",
+        variant: "destructive",
+      });
+      return;
+    }
+    
+    // Validate delivery address for delivery orders
+    if (deliveryMethod === 'delivery' && !deliveryAddress) {
+      toast({
+        title: "Missing address",
+        description: "Please provide your delivery address",
+        variant: "destructive",
+      });
+      return;
+    }
+    
+    // Validate payment info
     if (!cardName || !cardNumber || !expiryDate || !cvv || !billingZip) {
       toast({
         title: "Missing information",
@@ -112,15 +156,40 @@ const Payment = () => {
     // Process payment
     setIsProcessing(true);
     
-    // Simulate payment processing
-    setTimeout(() => {
-      setIsProcessing(false);
-      setPaymentSuccess(true);
+    try {
+      // In a real implementation, this would process payment through Stripe or Square
+      // For now, we'll simulate payment processing
+      
+      // Create order object for Supabase
+      const orderData = {
+        customer_name: customerName,
+        customer_email: customerEmail,
+        customer_phone: customerPhone.replace(/\D/g, ''), // Strip non-digits
+        items: cartItems,
+        total_amount: total,
+        delivery_address: deliveryMethod === 'delivery' ? deliveryAddress : undefined,
+        special_instructions: cartItems.some(item => item.specialInstructions) 
+          ? cartItems.map(item => item.specialInstructions && `${item.name}: ${item.specialInstructions}`).filter(Boolean).join('; ')
+          : undefined,
+        order_type: deliveryMethod as 'pickup' | 'delivery',
+        payment_id: `sim_${Date.now()}` // Simulated payment ID
+      };
+      
+      // Save order to Supabase
+      const result = await submitOrder(orderData);
+      
+      if (!result.success) {
+        throw new Error('Failed to save order');
+      }
+      
+      // Clear cart and show success
       clearCart();
+      setPaymentSuccess(true);
       
       // Clear delivery method from localStorage
       localStorage.removeItem('deliveryMethod');
       
+      // Redirect to home after delay
       setTimeout(() => {
         navigate('/');
         toast({
@@ -128,7 +197,15 @@ const Payment = () => {
           description: "Thank you for your order. Your food will be ready soon!",
         });
       }, 3000);
-    }, 2000);
+    } catch (error) {
+      console.error('Payment processing error:', error);
+      toast({
+        title: "Payment failed",
+        description: "There was an error processing your payment. Please try again.",
+        variant: "destructive",
+      });
+      setIsProcessing(false);
+    }
   };
 
   if (paymentSuccess) {
@@ -177,6 +254,58 @@ const Payment = () => {
               
               <form onSubmit={handleSubmit}>
                 <div className="space-y-6">
+                  <div className="bg-gray-50 p-4 rounded-lg mb-6">
+                    <h2 className="font-medium text-lg mb-4">Customer Information</h2>
+                    <div className="space-y-4">
+                      <div className="space-y-2">
+                        <Label htmlFor="customerName">Full Name</Label>
+                        <Input 
+                          id="customerName"
+                          placeholder="John Smith"
+                          value={customerName}
+                          onChange={(e) => setCustomerName(e.target.value)}
+                          required
+                        />
+                      </div>
+                      
+                      <div className="space-y-2">
+                        <Label htmlFor="customerEmail">Email Address</Label>
+                        <Input 
+                          id="customerEmail"
+                          type="email"
+                          placeholder="john@example.com"
+                          value={customerEmail}
+                          onChange={(e) => setCustomerEmail(e.target.value)}
+                          required
+                        />
+                      </div>
+                      
+                      <div className="space-y-2">
+                        <Label htmlFor="customerPhone">Phone Number</Label>
+                        <Input 
+                          id="customerPhone"
+                          placeholder="(123) 456-7890"
+                          value={customerPhone}
+                          onChange={handlePhoneChange}
+                          required
+                        />
+                      </div>
+                      
+                      {deliveryMethod === 'delivery' && (
+                        <div className="space-y-2">
+                          <Label htmlFor="deliveryAddress">Delivery Address</Label>
+                          <Input 
+                            id="deliveryAddress"
+                            placeholder="123 Main St, City, State, ZIP"
+                            value={deliveryAddress}
+                            onChange={(e) => setDeliveryAddress(e.target.value)}
+                            required
+                          />
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                  
                   <div className="space-y-2">
                     <Label htmlFor="cardName">Name on Card</Label>
                     <div className="relative">
@@ -186,6 +315,7 @@ const Payment = () => {
                         value={cardName}
                         onChange={(e) => setCardName(e.target.value)}
                         className="pl-10"
+                        required
                       />
                       <User size={16} className="absolute left-3 top-3 text-gray-500" />
                     </div>
@@ -201,6 +331,7 @@ const Payment = () => {
                         onChange={handleCardNumberChange}
                         maxLength={19}
                         className="pl-10"
+                        required
                       />
                       <CreditCardIcon size={16} className="absolute left-3 top-3 text-gray-500" />
                     </div>
@@ -217,6 +348,7 @@ const Payment = () => {
                           onChange={handleExpiryDateChange}
                           maxLength={5}
                           className="pl-10"
+                          required
                         />
                         <Calendar size={16} className="absolute left-3 top-3 text-gray-500" />
                       </div>
@@ -231,6 +363,7 @@ const Payment = () => {
                         onChange={(e) => setCvv(e.target.value.replace(/\D/g, ''))}
                         maxLength={4}
                         type="password"
+                        required
                       />
                     </div>
                     
@@ -242,6 +375,7 @@ const Payment = () => {
                         value={billingZip}
                         onChange={(e) => setBillingZip(e.target.value.replace(/\D/g, ''))}
                         maxLength={5}
+                        required
                       />
                     </div>
                   </div>

@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { ChevronRight, Star, Clock, MapPin, Utensils, Heart, Award, Check, Bookmark } from 'lucide-react';
 import BestsellerCard from '@/components/BestsellerCard';
 import SocialLinks from '@/components/SocialLinks';
+import ContactSection from '@/components/ContactSection';
 
 const Index = () => {
   // Sample bestsellers data
@@ -143,85 +144,79 @@ const Index = () => {
       </section>
 
       {/* Our Commitment to Quality - UPDATED LAYOUT */}
-      <section className="py-20 bg-gradient-to-b from-desi-cream to-white">
+      <section className="py-16 bg-white">
         <div className="container mx-auto px-4 md:px-6">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-display font-bold mb-4">
-              Our Commitment to Quality
-            </h2>
-            <p className="text-gray-600 max-w-2xl mx-auto">
-              At Desi Flavors Katy, we're committed to providing you with an exceptional dining experience.
-            </p>
-          </div>
+          <h2 className="text-3xl md:text-4xl font-display font-bold text-center mb-16">
+            Our Commitment to Quality
+          </h2>
           
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
-            <div className="space-y-6">
-              <div className="flex items-start">
-                <div className="flex-shrink-0 mt-1">
-                  <div className="flex items-center justify-center w-8 h-8 rounded-full bg-desi-orange text-white">
-                    <Check size={16} />
-                  </div>
-                </div>
-                <div className="ml-4">
-                  <h3 className="text-lg font-medium text-gray-900">100% Halal</h3>
-                  <p className="mt-1 text-gray-600">All our meat is sourced from certified Halal suppliers, ensuring the highest standards of quality and religious compliance.</p>
-                </div>
-              </div>
-              
-              <div className="flex items-start">
-                <div className="flex-shrink-0 mt-1">
-                  <div className="flex items-center justify-center w-8 h-8 rounded-full bg-desi-orange text-white">
-                    <Check size={16} />
-                  </div>
-                </div>
-                <div className="ml-4">
-                  <h3 className="text-lg font-medium text-gray-900">Authentic Spices</h3>
-                  <p className="mt-1 text-gray-600">We import and blend our spices using traditional methods to create the perfect balance of flavors in every dish.</p>
-                </div>
-              </div>
-              
-              <div className="flex items-start">
-                <div className="flex-shrink-0 mt-1">
-                  <div className="flex items-center justify-center w-8 h-8 rounded-full bg-desi-orange text-white">
-                    <Check size={16} />
-                  </div>
-                </div>
-                <div className="ml-4">
-                  <h3 className="text-lg font-medium text-gray-900">No Artificial Ingredients</h3>
-                  <p className="mt-1 text-gray-600">We cook with real ingredients—no artificial colors, flavors, or preservatives in any of our dishes.</p>
-                </div>
-              </div>
-              
-              <div className="flex items-start">
-                <div className="flex-shrink-0 mt-1">
-                  <div className="flex items-center justify-center w-8 h-8 rounded-full bg-desi-orange text-white">
-                    <Check size={16} />
-                  </div>
-                </div>
-                <div className="ml-4">
-                  <h3 className="text-lg font-medium text-gray-900">Made Fresh Daily</h3>
-                  <p className="mt-1 text-gray-600">Every dish is prepared fresh each day, ensuring you get the best taste and quality with every order.</p>
-                </div>
-              </div>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+            {/* Image visible at the top on mobile, right on desktop */}
+            <div className="order-1 lg:order-2">
+              <img 
+                src="https://images.unsplash.com/photo-1505253758473-96b7015fcd40?auto=format&fit=crop&q=80&w=800"
+                alt="Fresh ingredients for our food"
+                className="rounded-lg shadow-md w-full h-full object-cover"
+              />
             </div>
             
-            <div className="flex justify-center">
-              <div className="relative">
-                <div className="absolute -inset-4 bg-desi-orange/10 rounded-2xl transform rotate-3"></div>
-                <img 
-                  src="https://images.unsplash.com/photo-1577303935007-0d306ee638cf?auto=format&fit=crop&q=80&w=600" 
-                  alt="Quality Indian Cuisine" 
-                  className="rounded-xl shadow-lg relative transform -rotate-2 hover:rotate-0 transition-transform duration-500 w-full max-w-md"
-                />
-                <div className="absolute top-4 right-4 bg-desi-orange text-white px-4 py-1 rounded-full text-sm font-medium shadow-md transform rotate-3">
-                  100% Halal
+            <div className="order-2 lg:order-1 space-y-6">
+              <div className="flex items-start">
+                <div className="bg-desi-orange/10 rounded-full w-12 h-12 flex items-center justify-center shrink-0 mr-4">
+                  <span className="text-desi-orange text-xl font-bold">1</span>
+                </div>
+                <div>
+                  <h3 className="font-display font-medium text-xl mb-2">Fresh Ingredients</h3>
+                  <p className="text-gray-600">
+                    We source the freshest ingredients from local suppliers whenever possible, 
+                    ensuring that our dishes are not only delicious but also support local businesses.
+                  </p>
+                </div>
+              </div>
+              
+              <div className="flex items-start">
+                <div className="bg-desi-orange/10 rounded-full w-12 h-12 flex items-center justify-center shrink-0 mr-4">
+                  <span className="text-desi-orange text-xl font-bold">2</span>
+                </div>
+                <div>
+                  <h3 className="font-display font-medium text-xl mb-2">Authentic Recipes</h3>
+                  <p className="text-gray-600">
+                    Our recipes have been passed down through generations, preserving the authentic 
+                    flavors and cooking techniques of traditional Indian cuisine.
+                  </p>
+                </div>
+              </div>
+              
+              <div className="flex items-start">
+                <div className="bg-desi-orange/10 rounded-full w-12 h-12 flex items-center justify-center shrink-0 mr-4">
+                  <span className="text-desi-orange text-xl font-bold">3</span>
+                </div>
+                <div>
+                  <h3 className="font-display font-medium text-xl mb-2">100% Halal</h3>
+                  <p className="text-gray-600">
+                    We are committed to serving 100% Halal food, prepared according to Islamic dietary 
+                    guidelines, ensuring all our customers can enjoy our meals with confidence.
+                  </p>
+                </div>
+              </div>
+              
+              <div className="flex items-start">
+                <div className="bg-desi-orange/10 rounded-full w-12 h-12 flex items-center justify-center shrink-0 mr-4">
+                  <span className="text-desi-orange text-xl font-bold">4</span>
+                </div>
+                <div>
+                  <h3 className="font-display font-medium text-xl mb-2">Clean Preparation</h3>
+                  <p className="text-gray-600">
+                    Our kitchen maintains the highest standards of cleanliness and hygiene, with regular 
+                    health inspections and strict adherence to food safety protocols.
+                  </p>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </section>
-
+      
       {/* Customer Reviews Section */}
       <section className="py-20 bg-desi-black text-white">
         <div className="container mx-auto px-4 md:px-6">
@@ -313,6 +308,9 @@ const Index = () => {
           </div>
         </div>
       </section>
+
+      {/* Contact Section */}
+      <ContactSection />
     </main>;
 };
 
