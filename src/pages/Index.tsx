@@ -6,7 +6,6 @@ import BestsellersSection from '@/components/home/BestsellersSection';
 import QualityCommitmentSection from '@/components/home/QualityCommitmentSection';
 import CustomerReviewsSection from '@/components/home/CustomerReviewsSection';
 import ConnectSection from '@/components/home/ConnectSection';
-import ContactSection from '@/components/ContactSection';
 
 const Index = () => {
   // Reset scroll position
@@ -21,7 +20,6 @@ const Index = () => {
       <QualityCommitmentSection />
       <CustomerReviewsSection />
       <ConnectSection />
-      <ContactSection />
     </main>;
 };
 

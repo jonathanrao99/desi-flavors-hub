@@ -1,6 +1,7 @@
 
 import { Link } from 'react-router-dom';
-import { Facebook, Instagram, Twitter } from 'lucide-react';
+import { Facebook, Instagram, Twitter, Phone, Mail, MapPin } from 'lucide-react';
+
 const Footer = () => {
   const currentYear = new Date().getFullYear();
   return <footer className="bg-desi-black text-white pt-16 pb-8">
@@ -10,7 +11,7 @@ const Footer = () => {
           <div className="space-y-4">
             <Link to="/" className="inline-block">
               <h2 className="text-2xl font-display font-bold">
-                Desi <span className="text-desi-orange">Flavors</span>
+                Desi <span className="text-desi-orange">Flavors Katy</span>
               </h2>
             </Link>
             <p className="text-gray-300 max-w-xs">
@@ -55,10 +56,18 @@ const Footer = () => {
           <div>
             <h3 className="text-lg font-display font-medium mb-4 text-desi-orange">Get in Touch</h3>
             <ul className="space-y-3 text-gray-300">
-              <li>20607 Westheimer PKWY
-Katy, Texas, 77450</li>
-              <li>desiflavorskaty@gmail.com</li>
-              <li>346-824-4212</li>
+              <li className="flex items-center">
+                <MapPin size={18} className="text-desi-orange mr-2 flex-shrink-0" />
+                <span>20607 Westheimer PKWY, Katy, Texas, 77450</span>
+              </li>
+              <li className="flex items-center">
+                <Mail size={18} className="text-desi-orange mr-2 flex-shrink-0" />
+                <a href="mailto:desiflavorskaty@gmail.com" className="hover:text-desi-orange transition-colors">desiflavorskaty@gmail.com</a>
+              </li>
+              <li className="flex items-center">
+                <Phone size={18} className="text-desi-orange mr-2 flex-shrink-0" />
+                <a href="tel:+13468244212" className="hover:text-desi-orange transition-colors">346-824-4212</a>
+              </li>
               <li className="pt-2 flex space-x-4">
                 <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="text-gray-300 hover:text-desi-orange transition-colors" aria-label="Facebook">
                   <Facebook size={20} />

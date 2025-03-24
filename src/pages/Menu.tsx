@@ -20,7 +20,7 @@ const Menu = () => {
   const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
   const { addToCart } = useCart();
 
-  // Sample menu data
+  // Sample menu data with refreshed images
   const allMenuItems: MenuItem[] = [
     // Biryani
     {
@@ -30,7 +30,7 @@ const Menu = () => {
       price: '$14.99',
       isSpicy: true,
       category: 'Biryani',
-      imageSrc: 'https://images.unsplash.com/photo-1589302168068-964664d93dc0?auto=format&fit=crop&q=80&w=600'
+      imageSrc: 'https://images.unsplash.com/photo-1633945274405-b6c8069047b0?auto=format&fit=crop&q=80&w=600'
     },
     {
       id: 2,
@@ -39,7 +39,7 @@ const Menu = () => {
       price: '$12.99',
       isVegetarian: true,
       category: 'Biryani',
-      imageSrc: 'https://images.unsplash.com/photo-1645177628472-9771f5797883?auto=format&fit=crop&q=80&w=600'
+      imageSrc: 'https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?auto=format&fit=crop&q=80&w=600'
     },
     {
       id: 3,
@@ -48,7 +48,7 @@ const Menu = () => {
       price: '$16.99',
       isSpicy: true,
       category: 'Biryani',
-      imageSrc: 'https://images.unsplash.com/photo-1633945274405-b6c8069047b0?auto=format&fit=crop&q=80&w=600'
+      imageSrc: 'https://images.unsplash.com/photo-1651478717426-9eac75c19aa7?auto=format&fit=crop&q=80&w=600'
     },
     {
       id: 4,
@@ -56,7 +56,7 @@ const Menu = () => {
       description: 'Basmati rice cooked with boiled eggs, aromatic spices, and herbs.',
       price: '$13.99',
       category: 'Biryani',
-      imageSrc: 'https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?auto=format&fit=crop&q=80&w=600'
+      imageSrc: 'https://images.unsplash.com/photo-1689095398833-6ceaaa6ac592?auto=format&fit=crop&q=80&w=600'
     },
     // Curries
     {
@@ -65,7 +65,7 @@ const Menu = () => {
       description: 'Tender chicken pieces in a creamy, tomato-based curry with a hint of butter.',
       price: '$13.99',
       category: 'Curries',
-      imageSrc: 'https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?auto=format&fit=crop&q=80&w=600'
+      imageSrc: 'https://images.unsplash.com/photo-1605059279835-27fae4cb1514?auto=format&fit=crop&q=80&w=600'
     },
     {
       id: 6,
@@ -74,7 +74,7 @@ const Menu = () => {
       price: '$12.99',
       isVegetarian: true,
       category: 'Curries',
-      imageSrc: 'https://images.unsplash.com/photo-1567188040759-fb8a3d42c3b3?auto=format&fit=crop&q=80&w=600'
+      imageSrc: 'https://images.unsplash.com/photo-1631452180519-c014fe946bc7?auto=format&fit=crop&q=80&w=600'
     },
     {
       id: 7,
@@ -84,7 +84,7 @@ const Menu = () => {
       isVegetarian: true,
       isSpicy: true,
       category: 'Curries',
-      imageSrc: 'https://images.unsplash.com/photo-1588166524941-3bf61a9c41db?auto=format&fit=crop&q=80&w=600'
+      imageSrc: 'https://images.unsplash.com/photo-1623259838743-9f1e884fba59?auto=format&fit=crop&q=80&w=600'
     },
     // Appetizers
     {
@@ -94,7 +94,7 @@ const Menu = () => {
       price: '$6.99',
       isVegetarian: true,
       category: 'Appetizers',
-      imageSrc: 'https://images.unsplash.com/photo-1601050690597-df0568f70950?auto=format&fit=crop&q=80&w=600'
+      imageSrc: 'https://images.unsplash.com/photo-1665895653510-b92264fa72a6?auto=format&fit=crop&q=80&w=600'
     },
     {
       id: 9,
@@ -103,7 +103,7 @@ const Menu = () => {
       price: '$5.99',
       isVegetarian: true,
       category: 'Appetizers',
-      imageSrc: 'https://images.unsplash.com/photo-1606755456614-b3875c86b45e?auto=format&fit=crop&q=80&w=600'
+      imageSrc: 'https://images.unsplash.com/photo-1629115916087-7e8c114d3d3d?auto=format&fit=crop&q=80&w=600'
     },
     // Breads & Sides
     {
@@ -113,7 +113,7 @@ const Menu = () => {
       price: '$3.99',
       isVegetarian: true,
       category: 'Breads & Sides',
-      imageSrc: 'https://images.unsplash.com/photo-1584269600464-37b1b58a9fe7?auto=format&fit=crop&q=80&w=600'
+      imageSrc: 'https://images.unsplash.com/photo-1626777244128-87995e02f422?auto=format&fit=crop&q=80&w=600'
     },
     {
       id: 11,
@@ -122,7 +122,7 @@ const Menu = () => {
       price: '$3.49',
       isVegetarian: true,
       category: 'Breads & Sides',
-      imageSrc: 'https://images.unsplash.com/photo-1590779033965-9a6e5be8ef87?auto=format&fit=crop&q=80&w=600'
+      imageSrc: 'https://images.unsplash.com/photo-1627662179078-de97465e5055?auto=format&fit=crop&q=80&w=600'
     },
     // Desserts
     {
@@ -132,7 +132,7 @@ const Menu = () => {
       price: '$4.99',
       isVegetarian: true,
       category: 'Desserts',
-      imageSrc: 'https://images.unsplash.com/photo-1586954451116-17a1255a45cb?auto=format&fit=crop&q=80&w=600'
+      imageSrc: 'https://images.unsplash.com/photo-1624374984771-797463e0f0a0?auto=format&fit=crop&q=80&w=600'
     },
     {
       id: 13,
@@ -141,7 +141,7 @@ const Menu = () => {
       price: '$4.99',
       isVegetarian: true,
       category: 'Desserts',
-      imageSrc: 'https://images.unsplash.com/photo-1605195340090-9ae03a3cde34?auto=format&fit=crop&q=80&w=600'
+      imageSrc: 'https://images.unsplash.com/photo-1630442877073-1e7c60f31856?auto=format&fit=crop&q=80&w=600'
     },
   ];
 

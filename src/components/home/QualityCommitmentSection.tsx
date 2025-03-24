@@ -10,11 +10,13 @@ const QualityCommitmentSection = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
           {/* Image visible at the top on mobile, right on desktop */}
           <div className="order-1 lg:order-2">
-            <img 
-              src="https://images.unsplash.com/photo-1505253758473-96b7015fcd40?auto=format&fit=crop&q=80&w=800"
-              alt="Fresh ingredients for our food"
-              className="rounded-lg shadow-md w-full h-full object-cover"
-            />
+            <div className="overflow-hidden rounded-lg shadow-md">
+              <img 
+                src="https://images.unsplash.com/photo-1505253758473-96b7015fcd40?auto=format&fit=crop&q=80&w=800"
+                alt="Fresh ingredients for our food"
+                className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+              />
+            </div>
           </div>
           
           <div className="order-2 lg:order-1 space-y-6">
