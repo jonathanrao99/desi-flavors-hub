@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Phone, Calendar, ShoppingCart, Plus, Minus, Star, Clock } from 'lucide-react';
@@ -6,6 +7,8 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import { Switch } from "@/components/ui/switch";
+import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import SocialLinks from '@/components/SocialLinks';
 import { useCart } from '@/context/CartContext';
 import { toast } from '@/components/ui/use-toast';
@@ -24,10 +27,12 @@ interface MenuItem {
 const Order = () => {
   const [activeCategory, setActiveCategory] = useState<string>('All');
   const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
+  const [filteredItems, setFilteredItems] = useState<MenuItem[]>([]);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState<MenuItem | null>(null);
   const [quantity, setQuantity] = useState(1);
   const [specialInstructions, setSpecialInstructions] = useState('');
+  const [showVegOnly, setShowVegOnly] = useState(false);
   const { addToCart } = useCart();
 
   const allMenuItems: MenuItem[] = [
@@ -38,7 +43,7 @@ const Order = () => {
       price: '$14.99',
       isSpicy: true,
       category: 'Biryani',
-      imageSrc: 'https://images.unsplash.com/photo-1589302168068-964664d93dc0?auto=format&fit=crop&q=80&w=600'
+      imageSrc: 'https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?auto=format&fit=crop&q=80&w=600'
     },
     {
       id: 2,
@@ -64,7 +69,7 @@ const Order = () => {
       description: 'Basmati rice cooked with boiled eggs, aromatic spices, and herbs.',
       price: '$13.99',
       category: 'Biryani',
-      imageSrc: 'https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?auto=format&fit=crop&q=80&w=600'
+      imageSrc: 'https://images.unsplash.com/photo-1589302168068-964664d93dc0?auto=format&fit=crop&q=80&w=600'
     },
     {
       id: 5,
@@ -72,7 +77,7 @@ const Order = () => {
       description: 'Tender chicken pieces in a creamy, tomato-based curry with a hint of butter.',
       price: '$13.99',
       category: 'Curries',
-      imageSrc: 'https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?auto=format&fit=crop&q=80&w=600'
+      imageSrc: 'https://images.unsplash.com/photo-1588166524941-3bf61a9c41db?auto=format&fit=crop&q=80&w=600'
     },
     {
       id: 6,
@@ -91,7 +96,7 @@ const Order = () => {
       isVegetarian: true,
       isSpicy: true,
       category: 'Curries',
-      imageSrc: 'https://images.unsplash.com/photo-1588166524941-3bf61a9c41db?auto=format&fit=crop&q=80&w=600'
+      imageSrc: 'https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?auto=format&fit=crop&q=80&w=600'
     },
     {
       id: 8,
@@ -118,7 +123,7 @@ const Order = () => {
       price: '$3.99',
       isVegetarian: true,
       category: 'Breads & Sides',
-      imageSrc: 'https://images.unsplash.com/photo-1584269600464-37b1b58a9fe7?auto=format&fit=crop&q=80&w=600'
+      imageSrc: 'https://images.unsplash.com/photo-1579630941914-0b1729bfc78d?auto=format&fit=crop&q=80&w=600'
     },
     {
       id: 11,
@@ -159,13 +164,25 @@ const Order = () => {
     setMenuItems(allMenuItems);
   }, []);
 
+  // Handle filtering for both category and vegetarian toggle
+  useEffect(() => {
+    let filtered = [...allMenuItems];
+    
+    // Filter by category if not "All"
+    if (activeCategory !== 'All') {
+      filtered = filtered.filter(item => item.category === activeCategory);
+    }
+    
+    // Filter by vegetarian if the toggle is on
+    if (showVegOnly) {
+      filtered = filtered.filter(item => item.isVegetarian);
+    }
+    
+    setFilteredItems(filtered);
+  }, [activeCategory, showVegOnly, allMenuItems]);
+
   const handleCategoryClick = (category: string) => {
     setActiveCategory(category);
-    if (category === 'All') {
-      setMenuItems(allMenuItems);
-    } else {
-      setMenuItems(allMenuItems.filter(item => item.category === category));
-    }
   };
 
   const openOrderDialog = (item: MenuItem) => {
@@ -193,6 +210,11 @@ const Order = () => {
     }
   };
 
+  const getItemPrice = (basePrice: string, qty: number) => {
+    const price = parseFloat(basePrice.replace('$', ''));
+    return `$${(price * qty).toFixed(2)}`;
+  };
+
   return <main className="min-h-screen pt-24 pb-20">
       <section className="bg-desi-cream py-12 md:py-20">
         <div className="container mx-auto px-4 md:px-6 text-center">
@@ -211,32 +233,53 @@ const Order = () => {
         </div>
       </section>
       
-      <section className="bg-white py-12 border-b border-gray-100 sticky top-16 z-10 shadow-sm transition-all duration-300">
+      <section className="bg-white/80 backdrop-blur-md py-4 border-b border-gray-100 sticky top-16 z-10 shadow-sm transition-all duration-300">
         <div className="container mx-auto px-4 md:px-6">
-          <div className="flex justify-center flex-wrap gap-2">
-            <button
-              onClick={() => handleCategoryClick('All')}
-              className={`px-6 py-2 rounded-full text-sm font-medium transition-all ${
-                activeCategory === 'All'
-                  ? 'bg-desi-orange text-white shadow-md'
-                  : 'bg-gray-100/80 text-gray-700 hover:bg-gray-200/80'
-              }`}
-            >
-              All Items
-            </button>
-            {categories.map(category => (
+          <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
+            <div className="flex justify-center flex-wrap gap-2">
               <button
-                key={category}
-                onClick={() => handleCategoryClick(category)}
+                onClick={() => handleCategoryClick('All')}
                 className={`px-6 py-2 rounded-full text-sm font-medium transition-all ${
-                  category === activeCategory
+                  activeCategory === 'All'
                     ? 'bg-desi-orange text-white shadow-md'
                     : 'bg-gray-100/80 text-gray-700 hover:bg-gray-200/80'
                 }`}
               >
-                {category}
+                All Items
               </button>
-            ))}
+              {categories.map(category => (
+                <button
+                  key={category}
+                  onClick={() => handleCategoryClick(category)}
+                  className={`px-6 py-2 rounded-full text-sm font-medium transition-all ${
+                    category === activeCategory
+                      ? 'bg-desi-orange text-white shadow-md'
+                      : 'bg-gray-100/80 text-gray-700 hover:bg-gray-200/80'
+                  }`}
+                >
+                  {category}
+                </button>
+              ))}
+            </div>
+            
+            <div className="flex items-center space-x-2">
+              <ToggleGroup type="single" defaultValue="non-veg">
+                <ToggleGroupItem 
+                  value="non-veg" 
+                  className={!showVegOnly ? "bg-red-100 data-[state=on]:bg-red-200" : ""}
+                  onClick={() => setShowVegOnly(false)}
+                >
+                  All
+                </ToggleGroupItem>
+                <ToggleGroupItem 
+                  value="veg" 
+                  className={showVegOnly ? "bg-green-100 data-[state=on]:bg-green-200" : ""}
+                  onClick={() => setShowVegOnly(true)}
+                >
+                  Veg Only
+                </ToggleGroupItem>
+              </ToggleGroup>
+            </div>
           </div>
         </div>
       </section>
@@ -244,7 +287,7 @@ const Order = () => {
       <section className="py-12">
         <div className="container mx-auto px-4 md:px-6">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {menuItems.map((item, index) => (
+            {filteredItems.map((item, index) => (
               <div 
                 key={item.id}
                 className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-all duration-300 cursor-pointer transform hover:-translate-y-1"
@@ -299,7 +342,7 @@ const Order = () => {
       </section>
 
       <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-        <DialogContent className="sm:max-w-lg w-[95vw] max-h-[90vh] overflow-y-auto">
+        <DialogContent className="sm:max-w-md w-[95vw] max-h-[80vh] overflow-y-auto">
           <DialogHeader>
             <DialogTitle className="text-xl font-display">
               {selectedItem?.name}
@@ -323,17 +366,18 @@ const Order = () => {
                   alt={selectedItem.name} 
                   className="h-full w-full object-cover"
                 />
-                <div className="absolute bottom-2 right-2 bg-desi-orange text-white px-2 py-1 rounded-md text-sm font-medium shadow">
-                  {selectedItem.price}
-                </div>
               </div>
             )}
             <p className="text-gray-600">{selectedItem?.description}</p>
-            <p className="font-medium text-desi-orange text-lg">{selectedItem?.price}</p>
             
-            <div className="space-y-2">
-              <Label htmlFor="quantity">Quantity</Label>
-              <div className="flex items-center w-36 border border-gray-300 rounded-md">
+            <div className="flex justify-between items-center">
+              <div className="flex items-center">
+                <span className="font-medium text-desi-orange text-lg mr-6">
+                  {selectedItem && getItemPrice(selectedItem.price, quantity)}
+                </span>
+              </div>
+              
+              <div className="flex items-center border border-gray-300 rounded-md">
                 <button 
                   type="button"
                   onClick={() => setQuantity(Math.max(1, quantity - 1))}
@@ -342,12 +386,11 @@ const Order = () => {
                   <Minus size={16} />
                 </button>
                 <input
-                  id="quantity"
                   type="number"
                   min="1"
                   value={quantity}
-                  onChange={(e) => setQuantity(Math.max(1, parseInt(e.target.value)))}
-                  className="w-full text-center border-0 focus:ring-0"
+                  onChange={(e) => setQuantity(Math.max(1, parseInt(e.target.value || "1")))}
+                  className="w-16 text-center border-0 focus:ring-0"
                 />
                 <button 
                   type="button"
