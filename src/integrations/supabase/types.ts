@@ -36,39 +36,6 @@ export type Database = {
         }
         Relationships: []
       }
-      menu_items: {
-        Row: {
-          category: string
-          description: string | null
-          id: number
-          imagesrc: string | null
-          isspicy: boolean | null
-          isvegetarian: boolean | null
-          name: string
-          price: string
-        }
-        Insert: {
-          category: string
-          description?: string | null
-          id?: number
-          imagesrc?: string | null
-          isspicy?: boolean | null
-          isvegetarian?: boolean | null
-          name: string
-          price: string
-        }
-        Update: {
-          category?: string
-          description?: string | null
-          id?: number
-          imagesrc?: string | null
-          isspicy?: boolean | null
-          isvegetarian?: boolean | null
-          name?: string
-          price?: string
-        }
-        Relationships: []
-      }
       orders: {
         Row: {
           created_at: string
