@@ -3,7 +3,8 @@ import { useState, useEffect } from 'react';
 import { useCart } from '@/context/CartContext';
 import { toast } from '@/components/ui/use-toast';
 import { supabase } from '@/integrations/supabase/client';
-import { ShoppingCart } from 'lucide-react';
+import MenuDisplay from '@/components/MenuDisplay';
+import MenuNotes from '@/components/MenuNotes';
 
 interface MenuItem {
   id: number;
@@ -27,6 +28,7 @@ const Menu = () => {
     const fetchMenuItems = async () => {
       setIsLoading(true);
       try {
+        console.log('Fetching menu items...');
         const { data, error } = await supabase
           .from('menu_items')
           .select('*');
@@ -42,6 +44,7 @@ const Menu = () => {
         }
         
         if (data) {
+          console.log('Menu items fetched:', data);
           // Transform database fields to match our interface
           const transformedData = data.map(item => ({
             id: item.id,
@@ -87,12 +90,6 @@ const Menu = () => {
     });
   };
 
-  // Group menu items by category
-  const groupedItems = categories.reduce((acc, category) => {
-    acc[category] = menuItems.filter(item => item.category === category);
-    return acc;
-  }, {} as Record<string, MenuItem[]>);
-
   return (
     <main className="min-h-screen pt-24 pb-20">
       {/* Menu Header */}
@@ -116,93 +113,17 @@ const Menu = () => {
       {/* Menu Items in Two Columns */}
       <section className="py-12">
         <div className="container mx-auto px-4 md:px-6 max-w-5xl">
-          {isLoading ? (
-            <div className="flex justify-center items-center h-64">
-              <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-desi-orange"></div>
-            </div>
-          ) : (
-            <div className="space-y-12">
-              {categories.map(category => (
-                <div key={category} className="mb-12">
-                  <h2 className="text-2xl md:text-3xl font-display font-bold mb-6 text-center">
-                    {category}
-                  </h2>
-                  
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4">
-                    {groupedItems[category]?.map(item => (
-                      <div key={item.id} className="flex justify-between items-start border-b border-gray-100 pb-4">
-                        <div>
-                          <h3 className="font-display font-medium text-lg text-desi-black">
-                            {item.name}
-                            {item.isvegetarian && (
-                              <span className="ml-2 px-2 py-0.5 bg-green-100 text-green-800 text-xs rounded-full">
-                                Veg
-                              </span>
-                            )}
-                            {item.isspicy && (
-                              <span className="ml-2 px-2 py-0.5 bg-red-100 text-red-800 text-xs rounded-full">
-                                Spicy
-                              </span>
-                            )}
-                          </h3>
-                          <p className="text-gray-600 text-sm mt-1">{item.description}</p>
-                        </div>
-                        <div className="flex flex-col items-end">
-                          <span className="font-medium text-desi-orange">{item.price}</span>
-                          <button 
-                            onClick={() => handleAddToCart(item)}
-                            className="mt-2 flex items-center text-sm text-desi-orange hover:text-desi-orange/80 transition-colors"
-                          >
-                            <ShoppingCart size={16} className="mr-1" />
-                            Add
-                          </button>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              ))}
-            </div>
-          )}
+          <MenuDisplay 
+            menuItems={menuItems}
+            categories={categories}
+            isLoading={isLoading}
+            handleAddToCart={handleAddToCart}
+          />
         </div>
       </section>
       
       {/* Menu Notes */}
-      <section className="bg-desi-cream py-12">
-        <div className="container mx-auto px-4 md:px-6 max-w-3xl">
-          <div className="bg-white rounded-xl p-6 shadow-md">
-            <h3 className="text-xl font-display font-medium mb-4 text-desi-black">
-              Menu Notes
-            </h3>
-            <ul className="space-y-2 text-gray-600">
-              <li className="flex items-start">
-                <span className="bg-green-100 text-green-800 text-xs rounded-full px-2 py-0.5 mt-0.5 mr-2">
-                  Veg
-                </span>
-                <span>Vegetarian dishes</span>
-              </li>
-              <li className="flex items-start">
-                <span className="bg-red-100 text-red-800 text-xs rounded-full px-2 py-0.5 mt-0.5 mr-2">
-                  Spicy
-                </span>
-                <span>Spicy dishes that pack some heat</span>
-              </li>
-              <li className="flex items-start">
-                <span className="bg-green-100 text-green-800 text-xs rounded-full px-2 py-0.5 mt-0.5 mr-2">
-                  Halal
-                </span>
-                <span>All our meat dishes are certified Halal</span>
-              </li>
-              <li className="mt-4">
-                All dishes are prepared fresh daily. Menu items may vary based on availability.
-              </li>
-              <li>
-                Please inform us of any allergies or dietary restrictions when ordering.
-              </li>
-            </ul>
-          </div>
-        </div>
-      </section>
+      <MenuNotes />
     </main>
   );
 };
