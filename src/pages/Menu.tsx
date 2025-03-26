@@ -18,6 +18,7 @@ interface MenuItem {
 const Menu = () => {
   const [activeCategory, setActiveCategory] = useState<string>('Biryani');
   const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
+  const [isScrolled, setIsScrolled] = useState(false);
   const { addToCart } = useCart();
 
   // Sample menu data with original images
@@ -158,6 +159,20 @@ const Menu = () => {
     window.scrollTo(0, 0);
   }, []);
 
+  // Add scroll event listener to handle transparency
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 100) {
+        setIsScrolled(true);
+      } else {
+        setIsScrolled(false);
+      }
+    };
+    
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   const handleAddToCart = (item: MenuItem) => {
     addToCart(item);
   };
@@ -182,8 +197,10 @@ const Menu = () => {
         </div>
       </section>
       
-      {/* Menu Categories - Updated to be more transparent and stick closer to header */}
-      <section className="bg-white/80 backdrop-blur-md py-4 border-b border-gray-100 sticky top-16 z-10 shadow-sm transition-all duration-300">
+      {/* Menu Categories - Updated padding and transparency */}
+      <section className={`backdrop-blur-md py-8 border-b border-gray-100 sticky top-16 z-10 shadow-sm transition-all duration-300 ${
+        isScrolled ? 'bg-transparent' : 'bg-white'
+      }`}>
         <div className="container mx-auto px-4 md:px-6">
           {/* Mobile Category Dropdown */}
           <div className="md:hidden mb-4">

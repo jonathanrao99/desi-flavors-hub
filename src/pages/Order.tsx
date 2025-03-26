@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Phone, Calendar, ShoppingCart, Plus, Minus, Star, Clock } from 'lucide-react';
@@ -161,7 +160,6 @@ const Order = () => {
     setMenuItems(allMenuItems);
   }, []);
 
-  // Add scroll event listener to handle transparency
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > 100) {
@@ -227,7 +225,7 @@ const Order = () => {
         </div>
       </section>
       
-      <section className={`bg-white py-12 border-b border-gray-100 sticky top-16 z-10 shadow-sm transition-all duration-300 ${isScrolled ? 'bg-white/80 backdrop-blur-sm' : 'bg-white'}`}>
+      <section className={`py-8 border-b border-gray-100 sticky top-16 z-10 shadow-sm transition-all duration-300 ${isScrolled ? 'bg-transparent backdrop-blur-sm' : 'bg-white'}`}>
         <div className="container mx-auto px-4 md:px-6">
           <div className="flex justify-center flex-wrap gap-2">
             <button
