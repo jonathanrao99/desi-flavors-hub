@@ -10,7 +10,8 @@ const OrderHeader = () => {
           Order Online
         </h1>
         <p className="text-gray-600 max-w-2xl mx-auto animate-fade-in-delay">
-          Browse our menu, select your items, and checkout securely. Choose between pickup or delivery.
+          Browse our menu, select your items, and checkout securely. Choose between pickup or delivery from our 
+          location at 1989 North Fry RD, Katy, TX 77449.
         </p>
         <div className="mt-6">
           <Link to="/cart" className="inline-flex items-center bg-desi-orange hover:bg-desi-orange/90 text-white px-6 py-3 rounded-full transition-colors shadow-md hover:shadow-lg">

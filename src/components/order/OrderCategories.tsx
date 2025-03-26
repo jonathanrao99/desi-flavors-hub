@@ -8,7 +8,7 @@ interface OrderCategoriesProps {
 
 const OrderCategories = ({ activeCategory, categories, handleCategoryClick, isScrolled }: OrderCategoriesProps) => {
   return (
-    <section className={`py-8 border-b border-gray-100 sticky top-16 z-10 shadow-sm transition-all duration-300 ${isScrolled ? 'bg-transparent' : 'bg-white'}`}>
+    <section className={`py-8 sticky top-16 z-10 transition-all duration-300 ${isScrolled ? 'bg-transparent' : 'bg-white'}`}>
       <div className="container mx-auto px-4 md:px-6">
         <div className="flex justify-center flex-wrap gap-2">
           <button
