@@ -83,6 +83,7 @@ const ConnectSection = () => {
                   <h4 className="font-medium">Food Truck Location</h4>
                   <p className="text-gray-600">1989 North Fry RD<br />Katy, Texas, 77449</p>
                 </div>
+
               </div>
               <div className="flex items-start">
                 <Mail className="text-desi-orange mr-4 mt-1" size={20} />
@@ -137,3 +138,4 @@ const ConnectSection = () => {
 };
 
 export default ConnectSection;
+
