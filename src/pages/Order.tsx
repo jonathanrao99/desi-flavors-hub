@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Phone, Calendar, ShoppingCart, Plus, Minus, Star, Clock } from 'lucide-react';
@@ -28,6 +29,7 @@ const Order = () => {
   const [selectedItem, setSelectedItem] = useState<MenuItem | null>(null);
   const [quantity, setQuantity] = useState(1);
   const [specialInstructions, setSpecialInstructions] = useState('');
+  const [isScrolled, setIsScrolled] = useState(false);
   const { addToCart } = useCart();
 
   const allMenuItems: MenuItem[] = [
@@ -159,6 +161,20 @@ const Order = () => {
     setMenuItems(allMenuItems);
   }, []);
 
+  // Add scroll event listener to handle transparency
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 100) {
+        setIsScrolled(true);
+      } else {
+        setIsScrolled(false);
+      }
+    };
+    
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   const handleCategoryClick = (category: string) => {
     setActiveCategory(category);
     if (category === 'All') {
@@ -211,7 +227,7 @@ const Order = () => {
         </div>
       </section>
       
-      <section className="bg-white py-12 border-b border-gray-100 sticky top-16 z-10 shadow-sm transition-all duration-300">
+      <section className={`bg-white py-12 border-b border-gray-100 sticky top-16 z-10 shadow-sm transition-all duration-300 ${isScrolled ? 'bg-white/80 backdrop-blur-sm' : 'bg-white'}`}>
         <div className="container mx-auto px-4 md:px-6">
           <div className="flex justify-center flex-wrap gap-2">
             <button
@@ -397,8 +413,8 @@ const Order = () => {
                 Visit Our Food Truck
               </h3>
               <p className="text-gray-600 mb-4">
-                20607 Westheimer PKWY<br />
-                Katy, Texas, 77450
+                1989 North Fry RD<br />
+                Katy, Texas, 77449
               </p>
               <div className="flex items-start mt-4 mb-6">
                 <Clock className="text-desi-orange mt-1 mr-3" size={20} />

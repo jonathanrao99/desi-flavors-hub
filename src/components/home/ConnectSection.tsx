@@ -1,3 +1,4 @@
+
 import { Phone, Mail, MapPin, Clock } from 'lucide-react';
 import SocialLinks from '@/components/SocialLinks';
 import { Button } from "@/components/ui/button";
@@ -80,7 +81,7 @@ const ConnectSection = () => {
                 <MapPin className="text-desi-orange mr-4 mt-1" size={20} />
                 <div>
                   <h4 className="font-medium">Food Truck Location</h4>
-                  <p className="text-gray-600">20607 Westheimer PKWY<br />Katy, Texas, 77450</p>
+                  <p className="text-gray-600">1989 North Fry RD<br />Katy, Texas, 77449</p>
                 </div>
               </div>
               <div className="flex items-start">

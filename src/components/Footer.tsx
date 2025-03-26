@@ -58,7 +58,7 @@ const Footer = () => {
             <ul className="space-y-3 text-gray-300">
               <li className="flex items-center">
                 <MapPin size={18} className="text-desi-orange mr-2 flex-shrink-0" />
-                <span>20607 Westheimer PKWY, Katy, Texas, 77450</span>
+                <span>1989 North Fry RD, Katy, Texas, 77449</span>
               </li>
               <li className="flex items-center">
                 <Mail size={18} className="text-desi-orange mr-2 flex-shrink-0" />
