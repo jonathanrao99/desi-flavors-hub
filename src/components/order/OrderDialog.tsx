@@ -60,33 +60,36 @@ const OrderDialog = ({
             </div>
           )}
           <p className="text-gray-600">{selectedItem?.description}</p>
-          <p className="font-medium text-desi-orange text-lg">{selectedItem?.price}</p>
           
-          <div className="space-y-2">
-            <Label htmlFor="quantity">Quantity</Label>
-            <div className="flex items-center w-36 border border-gray-300 rounded-md">
-              <button 
-                type="button"
-                onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                className="px-3 py-2 text-gray-600 hover:bg-gray-100"
-              >
-                <Minus size={16} />
-              </button>
-              <input
-                id="quantity"
-                type="number"
-                min="1"
-                value={quantity}
-                onChange={(e) => setQuantity(Math.max(1, parseInt(e.target.value)))}
-                className="w-full text-center border-0 focus:ring-0"
-              />
-              <button 
-                type="button"
-                onClick={() => setQuantity(quantity + 1)}
-                className="px-3 py-2 text-gray-600 hover:bg-gray-100"
-              >
-                <Plus size={16} />
-              </button>
+          <div className="flex items-center justify-between">
+            <p className="font-medium text-desi-orange text-lg">{selectedItem?.price}</p>
+            
+            <div className="flex items-center">
+              <Label htmlFor="quantity" className="mr-2 hidden sm:inline">Quantity</Label>
+              <div className="flex items-center border border-gray-300 rounded-md">
+                <button 
+                  type="button"
+                  onClick={() => setQuantity(Math.max(1, quantity - 1))}
+                  className="px-3 py-2 text-gray-600 hover:bg-gray-100"
+                >
+                  <Minus size={16} />
+                </button>
+                <input
+                  id="quantity"
+                  type="number"
+                  min="1"
+                  value={quantity}
+                  onChange={(e) => setQuantity(Math.max(1, parseInt(e.target.value)))}
+                  className="w-12 text-center border-0 focus:ring-0"
+                />
+                <button 
+                  type="button"
+                  onClick={() => setQuantity(quantity + 1)}
+                  className="px-3 py-2 text-gray-600 hover:bg-gray-100"
+                >
+                  <Plus size={16} />
+                </button>
+              </div>
             </div>
           </div>
           
