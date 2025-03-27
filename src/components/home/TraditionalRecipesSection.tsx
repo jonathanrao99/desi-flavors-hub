@@ -1,4 +1,3 @@
-
 import { Utensils, Award, Heart } from 'lucide-react';
 
 const TraditionalRecipesSection = () => {
@@ -37,7 +36,7 @@ const TraditionalRecipesSection = () => {
               We use only the finest ingredients and authentic spices, ensuring every bite delivers a premium culinary experience.
             </p>
           </div>
-          
+
           {/* Love */}
           <div className="text-center p-6 rounded-xl hover:shadow-lg transition-shadow">
             <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-desi-orange/10 mb-5">

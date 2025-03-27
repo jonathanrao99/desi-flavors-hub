@@ -1,4 +1,3 @@
-
 import { Link } from 'react-router-dom';
 import { ChevronRight } from 'lucide-react';
 import BestsellerCard from '@/components/BestsellerCard';
@@ -35,11 +34,11 @@ const BestsellersSection = () => {
             that have made us a local favorite.
           </p>
         </div>
-        
+
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {bestsellers.map((item, index) => <BestsellerCard key={index} title={item.title} description={item.description} price={item.price} imageSrc={item.imageSrc} isSpecial={item.isSpecial} delay={index * 100} />)}
         </div>
-        
+
         <div className="mt-12 text-center">
           <Link to="/menu" className="inline-flex items-center text-desi-orange hover:text-desi-orange/80 font-medium transition-colors">
             <span>View Full Menu</span>

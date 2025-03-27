@@ -1,6 +1,5 @@
-
 import { useEffect } from 'react';
-import HeroSection from '@/components/home/HeroSection';
+import HeroSection from '../components/home/HeroSection';
 import TraditionalRecipesSection from '@/components/home/TraditionalRecipesSection';
 import BestsellersSection from '@/components/home/BestsellersSection';
 import QualityCommitmentSection from '@/components/home/QualityCommitmentSection';
