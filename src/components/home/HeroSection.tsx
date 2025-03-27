@@ -40,7 +40,7 @@ const HeroSection = () => {
             traditional favorites, made with authentic recipes and fresh ingredients.
           </p>
           <div className="flex items-center justify-center mb-6 animate-fade-in-delay">
-            <span className="bg-white/20 backdrop-blur-sm text-black px-4 py-1 rounded-full text-sm font-medium border border-white/20 flex items-center">
+            <span className="bg-white/20 backdrop-blur-sm text-white px-4 py-1 rounded-full text-sm font-medium border border-white/20 flex items-center">
               <Check size={16} className="mr-1 text-desi-orange" /> 
               100% Halal
             </span>
@@ -55,7 +55,7 @@ const HeroSection = () => {
             </Link>
             <Link 
               to="/order" 
-              className="bg-white/20 backdrop-blur-sm hover:bg-white/30 text-black px-8 py-3 
+              className="bg-white/20 backdrop-blur-sm hover:bg-white/30 text-desi-orange px-8 py-3 
                 rounded-full font-medium transition-all border border-white/30"
             >
               Order Online
