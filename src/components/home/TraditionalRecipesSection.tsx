@@ -8,10 +8,6 @@ const TraditionalRecipesSection = () => {
           <h2 className="text-3xl md:text-4xl font-display font-bold mb-4">
             Traditional Recipes, Modern Delights
           </h2>
-          <p className="text-gray-600 max-w-2xl mx-auto">
-            We blend time-honored family recipes with contemporary culinary techniques 
-            to create dishes that honor tradition while delighting today's palates.
-          </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
